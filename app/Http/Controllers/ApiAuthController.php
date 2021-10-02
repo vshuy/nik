@@ -24,25 +24,20 @@ class ApiAuthController extends Controller
     public function login(Request $request)
     {
         $credentials = request(['email', 'password']);
-        // if (Auth::guard('api')->attempt($credentials)) {
-        //     // Authenticated...
-        // }
-
-        if (!$token = Auth::attempt($credentials)) {
+        if (!$token = Auth::guard('api')->attempt($credentials)) {
             // return response()->json(['error' => 'Unauthorized'], 401);
             return response()->json([
                 'status' => false,
                 'token' => '',
-                'user_id' => '',
+                'user_if' => '',
             ]);
         }
         return response()
             ->json([
                 'status' => true,
                 'token' => $token,
-                'user_if' => Auth::user(),
-            ])
-            ->cookie('token', $token, 3600);
+                'user_if' => auth('api')->user(),
+            ]);
     }
 
     /**

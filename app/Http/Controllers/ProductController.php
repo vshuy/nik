@@ -63,7 +63,7 @@ class ProductController extends Controller
     {
         $listComment = DB::table('comments')
             ->join('users', 'users.id', '=', 'comments.user_id')
-            ->select('users.name', 'comments.contents')
+            ->select('comments.id', 'users.name', 'comments.contents')
             ->where('product_id', '=', $request->id)
             ->get();
         $detailProduct = DB::table('products')
@@ -96,7 +96,13 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $anProduct = Product::find($request->id_product);
+        $anProduct->category_id = $request->id_category;
+        $anProduct->name = $request->nameProduct;
+        $anProduct->cost = $request->cost;
+        $anProduct->contents_post = $request->post_data;
+        $anProduct->save();
+        return Response()->json(true);
     }
 
     /**

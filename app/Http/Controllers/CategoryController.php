@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Facade\FlareClient\Http\Response;
 
 class CategoryController extends Controller
 {
@@ -56,9 +57,12 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Request $request)
     {
-        //
+        $detailCategories = DB::table('categories')
+            ->where('id', '=', $request->id)
+            ->get();
+        return Response()->json($detailCategories);
     }
 
     /**
@@ -79,9 +83,13 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request)
     {
-        //
+        $category = Category::find($request->id_category);
+        $category->type_product = $request->name_category;
+        $category->descripe = $request->describe;
+        $category->save();
+        return Response()->json(true);
     }
 
     /**

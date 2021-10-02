@@ -50,6 +50,8 @@ Route::get('/getlistproduct', function () {
 Route::post('/uploadcategory', 'CategoryController@store');
 Route::get('/getlistcategory', 'CategoryController@index');
 Route::post('/deletecategoryby/{id}', 'CategoryController@destroy');
+Route::get('/getdetailcategoryby/{id}', 'CategoryController@show');
+Route::post('/updatecategory', 'CategoryController@update');
 
 Route::post('/uploadslide', 'SlideController@store');
 Route::get('/getlistslide', 'SlideController@index');
@@ -58,9 +60,11 @@ Route::post('deleteslideby/{id}', 'SlideController@destroy');
 Route::post('/uploadproduct', 'ProductController@store');
 Route::get('/getlistproductdb', 'ProductController@index');
 Route::get('/getdetailproductby/{id}', 'ProductController@show');
+Route::post('/updateproduct', 'ProductController@update');
 Route::post('deleteproductby/{id}', 'ProductController@destroy');
 
 Route::post('/uploadcomment', 'CommentController@store');
+Route::post('/deletecomment', 'CommentController@destroy');
 
 Route::post('/uploadbill', 'BillController@store');
 Route::get('/getlistbill', 'BillController@index');
