@@ -95,6 +95,14 @@ class BillController extends Controller
         ]);
         return $result;
     }
+    public function showbyuserid(Request $request)
+    {
+        $listBill = DB::table('bills')
+            ->select('bills.id', 'bills.created_at', 'bills.total')
+            ->where('bills.user_id', '=', $request->user_id)
+            ->get();
+        return response()->json($listBill);
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -127,7 +135,7 @@ class BillController extends Controller
      */
     public function destroy(Request $request)
     {
-        $aCategory = bill::find($request->id);
-        $aCategory->delete();
+        $aBill = bill::find($request->id);
+        $aBill->delete();
     }
 }

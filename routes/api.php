@@ -65,8 +65,10 @@ Route::post('deleteproductby/{id}', 'ProductController@destroy');
 
 Route::post('/uploadcomment', 'CommentController@store');
 Route::post('/deletecomment', 'CommentController@destroy');
+Route::post('/updatecomment', 'CommentController@update');
 
 Route::post('/uploadbill', 'BillController@store');
 Route::get('/getlistbill', 'BillController@index');
-Route::post('/deletebillby/{id}', 'BillController@destroy');
+Route::post('/deletebill', 'BillController@destroy');
 Route::post('/detailbillby/{id}', 'BillController@show');
+Route::post('/getlistbillbyuserid', 'BillController@showbyuserid');

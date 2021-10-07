@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Comment;
 use Illuminate\Http\Request;
 use Laravel\Ui\Presets\React;
+use PHP_CodeSniffer\Tokenizers\Comment as TokenizersComment;
 
 class CommentController extends Controller
 {
@@ -80,9 +81,12 @@ class CommentController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comment $comment)
+    public function update(Request $request)
     {
-        //
+        $comment = Comment::find($request->id_comment);
+        $comment->contents = $request->data_comment;
+        $comment->save();
+        return Response()->json(true);
     }
 
     /**

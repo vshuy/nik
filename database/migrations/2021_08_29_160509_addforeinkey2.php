@@ -16,28 +16,34 @@ class Addforeinkey2 extends Migration
         Schema::table('comments', function ($table) {
             $table->foreign('user_id')
                 ->references('id')
-                ->on('users');
+                ->on('users')
+                ->onDelete('cascade');
             $table->foreign('product_id')
                 ->references('id')
-                ->on('products');
+                ->on('products')
+                ->onDelete('cascade');
         });
         Schema::table('products', function (Blueprint $table) {
             $table->foreign('category_id')
                 ->references('id')
-                ->on('categories');
+                ->on('categories')
+                ->onDelete('cascade');
         });
         Schema::table('bills', function (Blueprint $table) {
             $table->foreign('user_id')
                 ->references('id')
-                ->on('users');
+                ->on('users')
+                ->onDelete('cascade');
         });
         Schema::table('detail_bills', function (Blueprint $table) {
             $table->foreign('bill_id')
                 ->references('id')
-                ->on('bills');
+                ->on('bills')
+                ->onDelete('cascade');
             $table->foreign('product_id')
                 ->references('id')
-                ->on('products');
+                ->on('products')
+                ->onDelete('cascade');
         });
     }
 
