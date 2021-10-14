@@ -33,42 +33,32 @@ Route::post('/logout', 'ApiAuthController@logout');
 Route::get('/gettoken', function () {
     return csrf_token();
 });
-Route::get('/getlistproduct', function () {
-    $listProduct = Product::all();
-    if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
-        $url = "https://";
-    } else {
-        $url = "http://";
-    }
-    $url .= $_SERVER['HTTP_HOST'];
-    foreach ($listProduct as &$value) {
-        $value->urlimg = $url . "/" . $value->urlimg;
-    }
-    return response()->json($listProduct);
-});
 
-Route::post('/uploadcategory', 'CategoryController@store');
-Route::get('/getlistcategory', 'CategoryController@index');
-Route::post('/deletecategoryby/{id}', 'CategoryController@destroy');
-Route::get('/getdetailcategoryby/{id}', 'CategoryController@show');
-Route::post('/updatecategory', 'CategoryController@update');
+Route::get('/category', 'CategoryController@index');
+Route::post('/category', 'CategoryController@store');
+Route::get('/category/{id}', 'CategoryController@show');
+Route::put('/category/{id}', 'CategoryController@update');
+Route::delete('/category/{id}', 'CategoryController@destroy');
 
-Route::post('/uploadslide', 'SlideController@store');
-Route::get('/getlistslide', 'SlideController@index');
-Route::post('deleteslideby/{id}', 'SlideController@destroy');
+Route::get('/slide', 'SlideController@index');
+Route::post('/slide', 'SlideController@store');
+Route::delete('slide/{id}', 'SlideController@destroy');
 
-Route::post('/uploadproduct', 'ProductController@store');
-Route::get('/getlistproductdb', 'ProductController@index');
-Route::get('/getdetailproductby/{id}', 'ProductController@show');
-Route::post('/updateproduct', 'ProductController@update');
-Route::post('deleteproductby/{id}', 'ProductController@destroy');
+Route::get('/product', 'ProductController@index');
+Route::post('/product', 'ProductController@store');
+Route::get('/product/{id}', 'ProductController@show');
+Route::put('/product/{id}', 'ProductController@update');
+Route::delete('/product/{id}', 'ProductController@destroy');
 
-Route::post('/uploadcomment', 'CommentController@store');
-Route::post('/deletecomment', 'CommentController@destroy');
-Route::post('/updatecomment', 'CommentController@update');
+Route::post('/comment', 'CommentController@store');
+Route::put('/comment', 'CommentController@update');
+Route::delete('/comment', 'CommentController@destroy');
 
-Route::post('/uploadbill', 'BillController@store');
-Route::get('/getlistbill', 'BillController@index');
-Route::post('/deletebill', 'BillController@destroy');
-Route::post('/detailbillby/{id}', 'BillController@show');
+Route::get('/bill', 'BillController@index');
+Route::post('/bill', 'BillController@store');
+Route::get('/bill/{id}', 'BillController@show');
+Route::put('/bill', 'BillController@update');
+Route::delete('/bill/{id}', 'BillController@destroy');
+
+
 Route::post('/getlistbillbyuserid', 'BillController@showbyuserid');

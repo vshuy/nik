@@ -17,6 +17,7 @@ class CreateBillsTable extends Migration
             $table->id()->unsigned();
             $table->unsignedBigInteger('user_id');
             $table->double('total', 20, 1);
+            $table->boolean('paid');
             $table->timestamps();
         });
     }

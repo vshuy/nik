@@ -19,7 +19,7 @@ class BillController extends Controller
     {
         $listBill = DB::table('bills')
             ->join('users', 'users.id', '=', 'bills.user_id')
-            ->select('bills.id', 'users.name', 'bills.total')
+            ->select('bills.id', 'users.name', 'bills.total', 'bills.paid')
             ->get();
         return response()->json($listBill);
     }
@@ -48,6 +48,7 @@ class BillController extends Controller
         $abill = new bill();
         $abill->user_id = $user_id;
         $abill->total = floatval($sum);
+        $abill->paid = 0;
         $abill->save();
         $idBill = $abill->id;
         foreach ($idProducts as &$item) {
@@ -98,7 +99,7 @@ class BillController extends Controller
     public function showbyuserid(Request $request)
     {
         $listBill = DB::table('bills')
-            ->select('bills.id', 'bills.created_at', 'bills.total')
+            ->select('bills.id', 'bills.created_at', 'bills.total', 'bills.paid')
             ->where('bills.user_id', '=', $request->user_id)
             ->get();
         return response()->json($listBill);
@@ -124,7 +125,10 @@ class BillController extends Controller
      */
     public function update(Request $request, bill $bill)
     {
-        //
+        $aBill = bill::find($request->id);
+        $aBill->paid = $request->check_value;
+        $aBill->save();
+        return Response()->json(true);
     }
 
     /**
