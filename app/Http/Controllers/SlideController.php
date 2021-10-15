@@ -19,15 +19,6 @@ class SlideController extends Controller
     public function index()
     {
         $list = Slide::all();
-        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
-            $url = "https://";
-        } else {
-            $url = "http://";
-        }
-        $url .= $_SERVER['HTTP_HOST'];
-        foreach ($list as &$value) {
-            $value->urlimg = $url . "/" . $value->urlimg;
-        }
         return response()->json($list);
     }
 
@@ -51,7 +42,9 @@ class SlideController extends Controller
     {
         $fileslide = $request->fileSlide;
         $nameslide = $request->nameSlide;
-        $path = $fileslide->store('imgslide');
+        $result = $request->fileSlide->storeOnCloudinary();
+        // $path = $fileslide->store('imgslide');
+        $path = $result->getSecurePath();
         //echo "Url is :" . $path . "<br>";
         $slide = new Slide();
         $slide->title = $nameslide;

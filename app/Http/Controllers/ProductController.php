@@ -41,8 +41,10 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $file = $request->file_img_product;
-        $path = $file->store('imgcake');
+        // $file = $request->file_img_product;
+        $result = $request->file_img_product->storeOnCloudinary();
+        $path = $result->getSecurePath();
+        // $path = $file->store('imgcake');
         $anProduct = new Product();
         $anProduct->category_id = $request->id_category;
         $anProduct->name = $request->nameProduct;
