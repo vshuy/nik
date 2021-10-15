@@ -34,6 +34,10 @@ Route::get('/gettoken', function () {
     return csrf_token();
 });
 
+Route::get('/gettoken', function () {
+    return "hello from heroku";
+});
+
 Route::get('/category', 'CategoryController@index');
 Route::post('/category', 'CategoryController@store');
 Route::get('/category/{id}', 'CategoryController@show');
