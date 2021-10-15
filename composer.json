@@ -61,6 +61,7 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
-        ]
+        ],
+        "config-last": [ "ln -sr storage/app/imgcake storage/app/imgslide public/imgcake public/imgslide" ]
     }
 }
