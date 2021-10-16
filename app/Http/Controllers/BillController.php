@@ -71,15 +71,6 @@ class BillController extends Controller
             ->select('products.id', 'products.name', 'products.urlimg', 'products.cost', 'detail_bills.amounts')
             ->where('bill_id', '=', $request->id)
             ->get();
-        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
-            $url = "https://";
-        } else {
-            $url = "http://";
-        }
-        $url .= $_SERVER['HTTP_HOST'];
-        foreach ($listBill as &$value) {
-            $value->urlimg = $url . "/" . $value->urlimg;
-        }
         $billInfo = DB::table('bills')
             ->join('users', 'users.id', '=', 'bills.user_id')
             ->select('bills.id', 'users.name', 'bills.total')

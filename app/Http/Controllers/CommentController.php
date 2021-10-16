@@ -83,7 +83,7 @@ class CommentController extends Controller
      */
     public function update(Request $request)
     {
-        $comment = Comment::find($request->id_comment);
+        $comment = Comment::find($request->id);
         $comment->contents = $request->data_comment;
         $comment->save();
         return Response()->json(true);
