@@ -35,7 +35,7 @@ Route::get('/gettoken', function () {
 });
 
 Route::get('/gettoken', function () {
-    return "hello from heroku a";
+    return "hello from heroku ab";
 });
 
 Route::get('/category', 'CategoryController@index');
