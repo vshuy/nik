@@ -55,7 +55,7 @@ class BillController extends Controller
             $item['bill_id'] = $idBill;
         }
         DB::table('detail_bills')->insert($idProducts);
-        return floatval(1.0);
+        return response()->json(true);
     }
 
     /**
