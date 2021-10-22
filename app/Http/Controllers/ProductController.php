@@ -10,7 +10,7 @@ class ProductController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['index', 'show']]);
+        $this->middleware('auth:api', ['except' => ['index', 'show', 'indexPaginate']]);
     }
     /**
      * Display a listing of the resource.
@@ -19,7 +19,12 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $list = Product::paginate(5);
+        $list = Product::all();
+        return response()->json($list);
+    }
+    public function indexPaginate()
+    {
+        $list = Product::paginate(4);
         return response()->json($list);
     }
 

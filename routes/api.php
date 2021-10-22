@@ -49,6 +49,7 @@ Route::post('/slide', 'SlideController@store');//ok
 Route::delete('slide/{id}', 'SlideController@destroy');
 
 Route::get('/product', 'ProductController@index');
+Route::get('/product/pg', 'ProductController@indexPaginate');
 Route::post('/product', 'ProductController@store');
 Route::get('/product/{id}', 'ProductController@show');//ok
 Route::put('/product/{id}', 'ProductController@update');
