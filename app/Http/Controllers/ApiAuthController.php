@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
-
-
+use App\User;
 use Illuminate\Http\Request;
+
+
 use Illuminate\Http\Response;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class ApiAuthController extends Controller
 {
@@ -25,7 +28,6 @@ class ApiAuthController extends Controller
     {
         $credentials = request(['email', 'password']);
         if (!$token = Auth::guard('api')->attempt($credentials)) {
-            // return response()->json(['error' => 'Unauthorized'], 401);
             return response()->json([
                 'status' => false,
                 'token' => '',
@@ -39,7 +41,25 @@ class ApiAuthController extends Controller
                 'user_if' => auth('api')->user(),
             ]);
     }
+    public function register(Request $request)
+    {
+        $rules = [
+            'name' => 'required',
+            'email'    => 'unique:users|required',
+            'password' => 'required',
+        ];
+        $input = $request->only('name', 'email', 'password');
+        $validator = Validator::make($input, $rules);
 
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'error' => $validator->messages()]);
+        }
+        $name = $request->name;
+        $email = $request->email;
+        $password = $request->password;
+        $user = User::create(['name' => $name, 'email' => $email, 'password' => Hash::make($password)]);
+        return response()->json(['success' => true]);
+    }
     /**
      * Get the authenticated User.
      *

@@ -21,43 +21,37 @@ use App\Http\Controllers\CategoryController;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-Route::post('test', function () {
-    return ["result" => "data has been save"];
-});
-Route::post('/login', 'ApiAuthController@login');
-Route::post('/me', 'ApiAuthController@me');
-Route::post('/logout', 'ApiAuthController@logout');
-Route::get('/gettoken', function () {
-    return csrf_token();
-});
 
 Route::get('/gettoken', function () {
     return "hello from heroku ab";
 });
 
+Route::post('/user/login', 'ApiAuthController@login');
+Route::post('/user/register', 'ApiAuthController@register');
+Route::post('/user/logout', 'ApiAuthController@logout');
+
 Route::get('/category', 'CategoryController@index');
 Route::post('/category', 'CategoryController@store');
-Route::get('/category/{id}', 'CategoryController@show');//ok
+Route::get('/category/{id}', 'CategoryController@show');
 Route::put('/category/{id}', 'CategoryController@update');
 Route::delete('/category/{id}', 'CategoryController@destroy');
 
 Route::get('/slide', 'SlideController@index');
-Route::post('/slide', 'SlideController@store');//ok
+Route::post('/slide', 'SlideController@store');
 Route::delete('slide/{id}', 'SlideController@destroy');
 
-Route::get('/product', 'ProductController@index');
 Route::get('/product/pg', 'ProductController@indexPaginate');
+Route::post('product/search', 'ProductController@search');
+
+Route::get('/product', 'ProductController@index');
 Route::post('/product', 'ProductController@store');
-Route::get('/product/{id}', 'ProductController@show');//ok
+Route::get('/product/{id}', 'ProductController@show');
 Route::put('/product/{id}', 'ProductController@update');
 Route::delete('/product/{id}', 'ProductController@destroy');
 
 Route::post('/comment', 'CommentController@store');
 Route::put('/comment/{id}', 'CommentController@update');
-Route::delete('/comment/{id}', 'CommentController@destroy');//ok
+Route::delete('/comment/{id}', 'CommentController@destroy');
 
 Route::get('/bill', 'BillController@index');
 Route::post('/bill', 'BillController@store');

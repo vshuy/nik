@@ -10,7 +10,7 @@ class ProductController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['index', 'show', 'indexPaginate']]);
+        $this->middleware('auth:api', ['except' => ['index', 'show', 'indexPaginate', 'search']]);
     }
     /**
      * Display a listing of the resource.
@@ -24,7 +24,15 @@ class ProductController extends Controller
     }
     public function indexPaginate()
     {
-        $list = Product::paginate(4);
+        $list = Product::paginate(8);
+        return response()->json($list);
+    }
+    public function search(Request $request)
+    {
+        $list = DB::table('products')
+            ->select('products.id', 'products.name')
+            ->where('products.name', 'like', '%' . $request->text . '%')
+            ->get();
         return response()->json($list);
     }
 
