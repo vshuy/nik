@@ -41,7 +41,8 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        $user_id = $request->user_id;
+        // $user_id = $request->user_id;
+        $user_id = auth('api')->user()->id;
         $product_id = $request->product_id;
         $data_comment = $request->data_comment;
         $comment = new Comment();
