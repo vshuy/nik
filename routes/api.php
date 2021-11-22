@@ -59,5 +59,4 @@ Route::get('/bill/{id}', 'BillController@show');
 Route::put('/bill/{id}', 'BillController@update');
 Route::delete('/bill/{id}', 'BillController@destroy');
 
-
 Route::post('/getlistbillbyuserid', 'BillController@showbyuserid');
