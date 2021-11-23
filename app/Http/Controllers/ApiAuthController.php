@@ -26,31 +26,42 @@ class ApiAuthController extends Controller
      */
     public function login(Request $request)
     {
-        $credentials = request(['email', 'password']);
-        if (!$token = Auth::guard('api')->attempt($credentials)) {
-            return response()->json([
-                'status' => false,
-                'token' => '',
-                'user_if' => '',
-            ]);
+        $rules = [
+            'email'    => 'required|email',
+            'password' => 'required',
+        ];
+        $input = $request->only('email', 'password');
+        $validator = Validator::make($input, $rules);
+        if ($validator->fails()) {
+            return response()->json(['status' => false, 'error' => $validator->messages()]);
+        } else {
+            $credentials = request(['email', 'password']);
+            if (!$token = Auth::guard('api')->attempt($credentials)) {
+                return response()->json([
+                    'status' => false,
+                    'token' => '',
+                    'user_if' => '',
+                    'error' => [['email or password incorrect']],
+                ]);
+            }
+            return response()
+                ->json([
+                    'status' => true,
+                    'token' => $token,
+                    'user_if' => auth('api')->user(),
+                    'error' => [],
+                ]);
         }
-        return response()
-            ->json([
-                'status' => true,
-                'token' => $token,
-                'user_if' => auth('api')->user(),
-            ]);
     }
     public function register(Request $request)
     {
         $rules = [
             'name' => 'required',
-            'email'    => 'unique:users|required',
+            'email'    => 'unique:users|required|email',
             'password' => 'required',
         ];
         $input = $request->only('name', 'email', 'password');
         $validator = Validator::make($input, $rules);
-
         if ($validator->fails()) {
             return response()->json(['success' => false, 'error' => $validator->messages()]);
         }

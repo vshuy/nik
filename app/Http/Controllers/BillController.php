@@ -78,7 +78,7 @@ class BillController extends Controller
             ->get();
         $userInfor = DB::table('users')
             ->select('users.name', 'users.email')
-            ->where('users.id', '=', $request->user_id)
+            ->where('users.id', '=', $billInfo[0]->id)
             ->get();
         $result = collect([
             "userInfor" => $userInfor,
