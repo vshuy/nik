@@ -42,8 +42,8 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $typeproduct = $request->name_category;
-        $describe = $request->describe;
+        $typeproduct = $request->type_product;
+        $describe = $request->descripe;
         $category = new Category();
         $category->type_product = $typeproduct;
         $category->descripe = $describe;
@@ -85,9 +85,9 @@ class CategoryController extends Controller
      */
     public function update(Request $request)
     {
-        $category = Category::find($request->id_category);
-        $category->type_product = $request->name_category;
-        $category->descripe = $request->describe;
+        $category = Category::find($request->id);
+        $category->type_product = $request->type_product;
+        $category->descripe = $request->descripe;
         $category->save();
         return Response()->json(true);
     }
