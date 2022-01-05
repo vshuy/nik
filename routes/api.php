@@ -59,4 +59,18 @@ Route::get('/bill/{id}', 'BillController@show');
 Route::put('/bill/{id}', 'BillController@update');
 Route::delete('/bill/{id}', 'BillController@destroy');
 
+Route::get('/post', 'PostController@index');
+Route::post('/post', 'PostController@store');
+Route::get('/post/{id}', 'PostController@show');
+Route::put('/post/{id}', 'PostController@update');
+Route::delete('/post/{id}', 'PostController@destroy');
+
+Route::get('/category_post', 'CategoryPostController@index');
+Route::post('/category_post', 'CategoryPostController@store');
+Route::get('/category_post/{id}', 'CategoryPostController@show');
+Route::put('/category_post/{id}', 'CategoryPostController@update');
+Route::delete('/category_post/{id}', 'CategoryPostController@destroy');
+
+
+
 Route::post('/getlistbillbyuserid', 'BillController@showbyuserid');

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductsTable extends Migration
+class Post extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreateProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('posts', function (Blueprint $table) {
             $table->id()->unsigned();
             $table->unsignedBigInteger('category_id');
             $table->text('name');
-            $table->text('urlimg');
+            $table->text('link_thumbnail');
             $table->longText('contents_post');
-            $table->double('cost', 20, 1);
-            $table->double('old_cost', 20, 1);
+            $table->unsignedBigInteger('views');
+            $table->unsignedBigInteger('like');
+            $table->timestamps();
         });
     }
 
@@ -31,6 +32,6 @@ class CreateProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('posts');
     }
 }
