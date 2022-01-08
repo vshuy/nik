@@ -14,7 +14,8 @@ class CategoryPostController extends Controller
      */
     public function index()
     {
-        //
+        $listCategory = CategoryPost::all();
+        return response()->json($listCategory);
     }
 
     /**
@@ -35,11 +36,9 @@ class CategoryPostController extends Controller
      */
     public function store(Request $request)
     {
-        $name = $request->namecake;
-        $descripe = $request->mota;
         $category = new CategoryPost();
-        $category->name_cake = $name;
-        $category->descripe = $descripe;
+        $category->name = $request->name;
+        $category->describe = $request->describe;
         $category->save();
     }
 
@@ -49,9 +48,10 @@ class CategoryPostController extends Controller
      * @param  \App\CategoryPost  $categoryPost
      * @return \Illuminate\Http\Response
      */
-    public function show(CategoryPost $categoryPost)
+    public function show(Request $request)
     {
-        //
+        $result = CategoryPost::find($request->id);
+        return Response()->json($result);
     }
 
     /**
@@ -74,7 +74,11 @@ class CategoryPostController extends Controller
      */
     public function update(Request $request, CategoryPost $categoryPost)
     {
-        //
+        $category = CategoryPost::find($request->id);
+        $category->name = $request->name;
+        $category->describe = $request->describe;
+        $category->save();
+        return Response()->json(true);
     }
 
     /**
@@ -83,8 +87,9 @@ class CategoryPostController extends Controller
      * @param  \App\CategoryPost  $categoryPost
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CategoryPost $categoryPost)
+    public function destroy(Request $request)
     {
-        //
+        $aCategory = CategoryPost::find($request->id);
+        $aCategory->delete();
     }
 }
