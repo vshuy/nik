@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use Facade\FlareClient\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,9 +16,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $listPost = DB::table('posts')
-            ->select(['id', 'created_at', 'name_post', 'views'])
-            ->get();
+        $listPost =  Post::all();
         return response()->json($listPost);
     }
 
@@ -38,13 +37,18 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $tmp_post = json_decode($request->post_data);
+        $result = $request->file_img_post->storeOnCloudinary();
+        $path = $result->getSecurePath();
         $post = new Post();
-        $post->name_post = $request->postname;
-        // $post->time_up = $current_date_time;
-        $post->contents_post = $request->content;
-        $post->category_id = $request->id_category;
+        $post->category_id = $tmp_post->category_id;
+        $post->name = $tmp_post->name;
+        $post->link_thumbnail = $path;
+        $post->content_post = $tmp_post->content_post;
         $post->views = 0;
+        $post->likes = 0;
         $post->save();
+        return "good";
     }
 
     /**
@@ -55,20 +59,8 @@ class PostController extends Controller
      */
     public function show(Request $request)
     {
-        $detailPost = DB::table('posts')
-            ->select(['name_post', 'created_at', 'views', 'contents_post'])
-            ->where('id', '=', $request->id)
-            ->get();
-        $commentPost = DB::table('comments')
-            ->join('users', 'users.id', '=', 'comments.user_id')
-            ->select('comments.id', 'users.name', 'comments.contents', 'comments.created_at')
-            ->where('post_id', '=', $request->id)
-            ->get();
-        $result = collect([
-            'detail' => $detailPost,
-            'listcomment' => $commentPost
-        ]);
-        return response()->json($result);
+         $result = Post::find($request->id);
+        return Response()->json($result);
     }
 
     /**

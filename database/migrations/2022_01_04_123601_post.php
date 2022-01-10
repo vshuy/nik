@@ -18,9 +18,9 @@ class Post extends Migration
             $table->unsignedBigInteger('category_id');
             $table->text('name');
             $table->text('link_thumbnail');
-            $table->longText('contents_post');
+            $table->longText('content_post');
             $table->unsignedBigInteger('views');
-            $table->unsignedBigInteger('like');
+            $table->unsignedBigInteger('likes');
             $table->timestamps();
         });
     }

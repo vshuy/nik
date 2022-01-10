@@ -40,10 +40,8 @@ class SlideController extends Controller
      */
     public function store(Request $request)
     {
-        $fileslide = $request->fileSlide;
         $nameslide = $request->nameSlide;
         $result = $request->fileSlide->storeOnCloudinary();
-        // $path = $fileslide->store('imgslide');
         $path = $result->getSecurePath();
         //echo "Url is :" . $path . "<br>";
         $slide = new Slide();
