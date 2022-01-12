@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Comment;
 use Illuminate\Http\Request;
 use Laravel\Ui\Presets\React;
+use Illuminate\Support\Facades\DB;
 use PHP_CodeSniffer\Tokenizers\Comment as TokenizersComment;
 
 class CommentController extends Controller
@@ -44,7 +45,7 @@ class CommentController extends Controller
         // $user_id = $request->user_id;
         $user_id = auth('api')->user()->id;
         $product_id = $request->product_id;
-        $data_comment = $request->data_comment;
+        $data_comment = $request->contents;
         $comment = new Comment();
         $comment->user_id = $user_id;
         $comment->product_id = $product_id;
@@ -61,7 +62,12 @@ class CommentController extends Controller
      */
     public function show(Request $request)
     {
-        //
+        $listComment = DB::table('comments')
+            ->join('users', 'users.id', '=', 'comments.user_id')
+            ->select('comments.id', 'comments.user_id', 'users.name', 'comments.contents')
+            ->where('product_id', '=', $request->id)
+            ->get();
+        return Response()->json($listComment);
     }
 
     /**
@@ -85,7 +91,7 @@ class CommentController extends Controller
     public function update(Request $request)
     {
         $comment = Comment::find($request->id);
-        $comment->contents = $request->data_comment;
+        $comment->contents = $request->contents;
         $comment->save();
         return Response()->json(true);
     }

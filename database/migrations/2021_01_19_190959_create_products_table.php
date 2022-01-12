@@ -16,9 +16,10 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id()->unsigned();
             $table->unsignedBigInteger('category_id');
+            $table->text('publicIdCloudinary');
             $table->text('name');
-            $table->text('urlimg');
-            $table->longText('contents_post');
+            $table->text('link_thumbnail');
+            $table->longText('content_post');
             $table->double('cost', 20, 1);
             $table->double('old_cost', 20, 1);
         });

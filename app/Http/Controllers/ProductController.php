@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use Cloudinary\Cloudinary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -54,16 +55,18 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        // $file = $request->file_img_product;
+        $dataProduct = json_decode($request->product_data);
         $result = $request->file_img_product->storeOnCloudinary();
         $path = $result->getSecurePath();
-        // $path = $file->store('imgcake');
+        $publicId = $result->getPublicId();
         $anProduct = new Product();
-        $anProduct->category_id = $request->id_category;
-        $anProduct->name = $request->nameProduct;
-        $anProduct->urlimg = $path;
-        $anProduct->cost = $request->cost;
-        $anProduct->contents_post = $request->post_data;
+        $anProduct->category_id = $dataProduct->category_id;
+        $anProduct->name = $dataProduct->name;
+        $anProduct->link_thumbnail = $path;
+        $anProduct->publicIdCloudinary = $publicId;
+        $anProduct->cost = $dataProduct->cost;
+        $anProduct->old_cost = $dataProduct->cost;
+        $anProduct->content_post = $dataProduct->content_post;
         $anProduct->save();
         return Response()->json(true);
     }
@@ -76,19 +79,8 @@ class ProductController extends Controller
      */
     public function show(Request $request)
     {
-        $listComment = DB::table('comments')
-            ->join('users', 'users.id', '=', 'comments.user_id')
-            ->select('comments.id', 'users.name', 'comments.contents')
-            ->where('product_id', '=', $request->id)
-            ->get();
-        $detailProduct = DB::table('products')
-            ->where('id', '=', $request->id)
-            ->get();
-        $result = collect([
-            "product" => $detailProduct,
-            "list_comment" => $listComment,
-        ]);
-        return response()->json($result);
+        $detailProduct = Product::find($request->id);
+        return response()->json($detailProduct);
     }
 
     /**
@@ -111,11 +103,11 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $anProduct = Product::find($request->id_product);
-        $anProduct->category_id = $request->id_category;
-        $anProduct->name = $request->nameProduct;
+        $anProduct = Product::find($request->id);
+        $anProduct->category_id = $request->category_id;
+        $anProduct->name = $request->name;
         $anProduct->cost = $request->cost;
-        $anProduct->contents_post = $request->post_data;
+        $anProduct->content_post = $request->content_post;
         $anProduct->save();
         return Response()->json(true);
     }
@@ -128,7 +120,9 @@ class ProductController extends Controller
      */
     public function destroy(Request $request)
     {
-        $aCake = Product::find($request->id);
-        $aCake->delete();
+        $aProduct = Product::find($request->id);
+        $cloudinary = new Cloudinary();
+        $cloudinary->uploadApi()->destroy($aProduct->publicIdCloudinary);
+        $aProduct->delete();
     }
 }

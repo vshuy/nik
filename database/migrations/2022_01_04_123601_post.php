@@ -16,6 +16,7 @@ class Post extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id()->unsigned();
             $table->unsignedBigInteger('category_id');
+            $table->text('publicIdCloudinary');
             $table->text('name');
             $table->text('link_thumbnail');
             $table->longText('content_post');

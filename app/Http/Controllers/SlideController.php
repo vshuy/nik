@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Slide;
+use Cloudinary\Cloudinary;
 use Illuminate\Http\Request;
 
 class SlideController extends Controller
@@ -43,8 +44,9 @@ class SlideController extends Controller
         $nameslide = $request->nameSlide;
         $result = $request->fileSlide->storeOnCloudinary();
         $path = $result->getSecurePath();
-        //echo "Url is :" . $path . "<br>";
+        $publicId = $result->getPublicId();
         $slide = new Slide();
+        $slide->publicIdCloudinary = $publicId;
         $slide->title = $nameslide;
         $slide->urlimg = $path;
         $slide->save();
@@ -94,6 +96,8 @@ class SlideController extends Controller
     public function destroy(Request $request)
     {
         $aSlide = Slide::find($request->id);
+        $cloudinary = new Cloudinary();
+        $cloudinary->uploadApi()->destroy($aSlide->publicIdCloudinary);
         $aSlide->delete();
     }
 }

@@ -15,6 +15,7 @@ class CreateSlidesTable extends Migration
     {
         Schema::create('slides', function (Blueprint $table) {
             $table->id();
+            $table->text('publicIdCloudinary');
             $table->text('title');
             $table->text('urlimg');
         });

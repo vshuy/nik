@@ -50,6 +50,7 @@ Route::put('/product/{id}', 'ProductController@update');
 Route::delete('/product/{id}', 'ProductController@destroy');
 
 Route::post('/comment', 'CommentController@store');
+Route::get('/comment/{id}', 'CommentController@show');
 Route::put('/comment/{id}', 'CommentController@update');
 Route::delete('/comment/{id}', 'CommentController@destroy');
 
