@@ -8,6 +8,7 @@ use App\Http\Controllers\BillController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ApiAuthController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\CommentPostController;
 use App\Http\Controllers\CategoryController;
 
 /*
@@ -53,6 +54,11 @@ Route::post('/comment', 'CommentController@store');
 Route::get('/comment/{id}', 'CommentController@show');
 Route::put('/comment/{id}', 'CommentController@update');
 Route::delete('/comment/{id}', 'CommentController@destroy');
+
+Route::post('/comment_post', 'CommentPostController@store');
+Route::get('/comment_post/{id}', 'CommentPostController@show');
+Route::put('/comment_post/{id}', 'CommentPostController@update');
+Route::delete('/comment_post/{id}', 'CommentPostController@destroy');
 
 Route::get('/bill', 'BillController@index');
 Route::post('/bill', 'BillController@store');
