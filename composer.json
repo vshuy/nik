@@ -17,6 +17,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^2.4",
         "paypal/paypal-payouts-sdk": "^1.0",
+        "spatie/laravel-permission": "^5.5",
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
