@@ -42,14 +42,15 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        // $user_id = $request->user_id;
+        $this->validate($request, [
+            'product_id' => 'required',
+            'contents' => 'required',
+        ]);
         $user_id = auth('api')->user()->id;
-        $product_id = $request->product_id;
-        $data_comment = $request->contents;
         $comment = new Comment();
         $comment->user_id = $user_id;
-        $comment->product_id = $product_id;
-        $comment->contents = $data_comment;
+        $comment->product_id = $request->product_id;
+        $comment->contents = $request->contents;
         $comment->save();
         return Response()->json($comment->id);
     }
@@ -90,6 +91,9 @@ class CommentController extends Controller
      */
     public function update(Request $request)
     {
+        $this->validate($request, [
+            'contents' => 'required',
+        ]);
         $comment = Comment::find($request->id);
         $comment->contents = $request->contents;
         $comment->save();
@@ -104,8 +108,7 @@ class CommentController extends Controller
      */
     public function destroy(Request $request)
     {
-        $aComment = Comment::find($request->id);
-        $aComment->delete();
+        $aComment = Comment::find($request->id)->delete();
         return Response()->json(true);
     }
 }

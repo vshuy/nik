@@ -10,6 +10,7 @@ use App\Http\Controllers\ApiAuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CommentPostController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,10 +56,10 @@ Route::get('/comment/{id}', 'CommentController@show');
 Route::put('/comment/{id}', 'CommentController@update');
 Route::delete('/comment/{id}', 'CommentController@destroy');
 
-Route::post('/comment_post', 'CommentPostController@store');
-Route::get('/comment_post/{id}', 'CommentPostController@show');
-Route::put('/comment_post/{id}', 'CommentPostController@update');
-Route::delete('/comment_post/{id}', 'CommentPostController@destroy');
+Route::post('/comment-post', 'CommentPostController@store');
+Route::get('/comment-post/{id}', 'CommentPostController@show');
+Route::put('/comment-post/{id}', 'CommentPostController@update');
+Route::delete('/comment-post/{id}', 'CommentPostController@destroy');
 
 Route::get('/bill', 'BillController@index');
 Route::post('/bill', 'BillController@store');
@@ -72,11 +73,18 @@ Route::get('/post/{id}', 'PostController@show');
 Route::put('/post/{id}', 'PostController@update');
 Route::delete('/post/{id}', 'PostController@destroy');
 
-Route::get('/category_post', 'CategoryPostController@index');
-Route::post('/category_post', 'CategoryPostController@store');
-Route::get('/category_post/{id}', 'CategoryPostController@show');
-Route::put('/category_post/{id}', 'CategoryPostController@update');
-Route::delete('/category_post/{id}', 'CategoryPostController@destroy');
+Route::get('/role', 'RoleController@index');
+Route::post('/role', 'RoleController@store');
+Route::get('/role/{id}', 'RoleController@show');
+Route::put('/role/{id}', 'RoleController@update');
+Route::get('/role-create', 'RoleController@create');
+Route::delete('/role/{id}', 'RoleController@destroy');
+
+Route::get('/category-post', 'CategoryPostController@index');
+Route::post('/category-post', 'CategoryPostController@store');
+Route::get('/category-post/{id}', 'CategoryPostController@show');
+Route::put('/category-post/{id}', 'CategoryPostController@update');
+Route::delete('/category-post/{id}', 'CategoryPostController@destroy');
 
 
 
