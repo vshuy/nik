@@ -76,7 +76,7 @@ class RoleController extends Controller
             ->get();
         $aResponse = collect([
             "role" => $role,
-            "rolePermission" => $rolePermissions,
+            "rolePermissions" => $rolePermissions,
         ]);
         return Response()->json($aResponse);
     }
@@ -90,17 +90,17 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role = Role::find($id);
-        $permission = Permission::get();
+        $permissions = Permission::get();
         $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id", $id)
             ->pluck('role_has_permissions.permission_id', 'role_has_permissions.permission_id')
             ->all();
 
         $aResponse = collect([
             "role" => $role,
-            "permission" => $permission,
-            "rolePermission" => $rolePermissions,
+            "permissions" => $permissions,
+            "rolePermissions" => $rolePermissions,
         ]);
-        return Response()->toJson($aResponse);
+        return Response()->json($aResponse);
     }
 
     /**
@@ -114,14 +114,14 @@ class RoleController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'permission' => 'required',
+            'permissions' => 'required',
         ]);
 
         $role = Role::find($id);
         $role->name = $request->input('name');
         $role->save();
 
-        $role->syncPermissions($request->input('permission'));
+        $role->syncPermissions($request->input('permissions'));
         return Response()->json('Role updated successfully');
     }
     /**

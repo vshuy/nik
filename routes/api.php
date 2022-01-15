@@ -78,6 +78,7 @@ Route::post('/role', 'RoleController@store');
 Route::get('/role/{id}', 'RoleController@show');
 Route::put('/role/{id}', 'RoleController@update');
 Route::get('/role-create', 'RoleController@create');
+Route::get('/role/{id}/edit', 'RoleController@edit');
 Route::delete('/role/{id}', 'RoleController@destroy');
 
 Route::get('/category-post', 'CategoryPostController@index');
