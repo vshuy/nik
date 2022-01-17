@@ -81,6 +81,12 @@ Route::get('/role-create', 'RoleController@create');
 Route::get('/role/{id}/edit', 'RoleController@edit');
 Route::delete('/role/{id}', 'RoleController@destroy');
 
+Route::get('/permission', 'PermissionController@index');
+Route::post('/permission', 'PermissionController@store');
+Route::get('/permission/{id}', 'PermissionController@show');
+Route::put('/permission/{id}', 'PermissionController@update');
+Route::delete('/permission/{id}', 'PermissionController@destroy');
+
 Route::get('/category-post', 'CategoryPostController@index');
 Route::post('/category-post', 'CategoryPostController@store');
 Route::get('/category-post/{id}', 'CategoryPostController@show');
