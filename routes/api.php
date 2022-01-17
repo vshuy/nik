@@ -93,6 +93,8 @@ Route::get('/category-post/{id}', 'CategoryPostController@show');
 Route::put('/category-post/{id}', 'CategoryPostController@update');
 Route::delete('/category-post/{id}', 'CategoryPostController@destroy');
 
-
+Route::get('/brands', 'BrandController@index');
+Route::get('/rams', 'RamController@index');
+Route::get('/memories', 'MemoryController@index');
 
 Route::post('/getlistbillbyuserid', 'BillController@showbyuserid');

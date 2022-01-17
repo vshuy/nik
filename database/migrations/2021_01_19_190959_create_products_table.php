@@ -16,6 +16,9 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id()->unsigned();
             $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('brand_id');
+            $table->unsignedBigInteger('ram_id');
+            $table->unsignedBigInteger('memory_id');
             $table->text('publicIdCloudinary');
             $table->text('name');
             $table->text('link_thumbnail');
