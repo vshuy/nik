@@ -11,4 +11,8 @@ class Comment extends Model
     protected $casts = [
         'created_at' => 'datetime:Y-m-d',
     ];
+    public function product()
+    {
+        return $this->belongsTo('App\Product');
+    }
 }

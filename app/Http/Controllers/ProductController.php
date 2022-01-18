@@ -61,6 +61,9 @@ class ProductController extends Controller
         $publicId = $result->getPublicId();
         $anProduct = new Product();
         $anProduct->category_id = $dataProduct->category_id;
+        $anProduct->brand_id = $dataProduct->brand_id;
+        $anProduct->memory_id = $dataProduct->memory_id;
+        $anProduct->ram_id = $dataProduct->ram_id;
         $anProduct->name = $dataProduct->name;
         $anProduct->link_thumbnail = $path;
         $anProduct->publicIdCloudinary = $publicId;

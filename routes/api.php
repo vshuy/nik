@@ -31,6 +31,7 @@ Route::get('/gettoken', function () {
 Route::post('/user/login', 'ApiAuthController@login');
 Route::post('/user/register', 'ApiAuthController@register');
 Route::post('/user/logout', 'ApiAuthController@logout');
+Route::post('/user/me', 'ApiAuthController@me');
 
 Route::get('/category', 'CategoryController@index');
 Route::post('/category', 'CategoryController@store');
@@ -80,6 +81,14 @@ Route::put('/role/{id}', 'RoleController@update');
 Route::get('/role-create', 'RoleController@create');
 Route::get('/role/{id}/edit', 'RoleController@edit');
 Route::delete('/role/{id}', 'RoleController@destroy');
+
+Route::get('/role-assign', 'UserController@index');
+Route::post('/role-assign', 'UserController@store');
+Route::get('/role-assign/{id}', 'UserController@show');
+Route::put('/role-assign/{id}', 'UserController@update');
+Route::get('/role-create', 'UserController@create');
+Route::get('/role-assign/{id}/edit', 'UserController@edit');
+Route::delete('/role-assign/{id}', 'UserController@destroy');
 
 Route::get('/permission', 'PermissionController@index');
 Route::post('/permission', 'PermissionController@store');

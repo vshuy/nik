@@ -68,6 +68,7 @@ class CommentController extends Controller
             ->select('comments.id', 'comments.user_id', 'users.name', 'comments.contents')
             ->where('product_id', '=', $request->id)
             ->get();
+
         return Response()->json($listComment);
     }
 
