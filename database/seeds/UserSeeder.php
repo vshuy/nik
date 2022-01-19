@@ -16,11 +16,11 @@ class UserSeeder extends Seeder
     {
         //
         $user = User::create([
-            'name' => 'Admin',
+            'name' => 'admin',
             'email' => 'vshbmt@gmail.com',
-            'password' => bcrypt('123456789')
+            'password' => bcrypt('0123456789')
         ]);
-        $role = Role::create(['name' => 'admin']);
+        $role = Role::create(['guard_name' => 'admin', 'name' => 'admin']);
         $permissions = Permission::pluck('id', 'id')->all();
         $role->syncPermissions($permissions);
         $user->assignRole([$role->id]);
