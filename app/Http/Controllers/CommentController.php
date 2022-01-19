@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Product;
 use Illuminate\Http\Request;
 use Laravel\Ui\Presets\React;
 use Illuminate\Support\Facades\DB;
@@ -63,13 +64,15 @@ class CommentController extends Controller
      */
     public function show(Request $request)
     {
-        $listComment = DB::table('comments')
+        $result = DB::table('comments')
             ->join('users', 'users.id', '=', 'comments.user_id')
             ->select('comments.id', 'comments.user_id', 'users.name', 'comments.contents')
             ->where('product_id', '=', $request->id)
             ->get();
-
-        return Response()->json($listComment);
+        // $result = Comment::with(['user:id,name', 'product' => function ($query) {
+        //     $query->where('id', 1);
+        // }])->get();
+        return Response()->json($result);
     }
 
     /**

@@ -20,7 +20,8 @@ class UserSeeder extends Seeder
             'email' => 'vshbmt@gmail.com',
             'password' => bcrypt('123456789')
         ]);
-        $role = Role::create(['guard_name' => 'web', 'name' => 'admin']);
+        $role = Role::create(['guard_name' => 'api', 'name' => 'admin']);
+        $role = Role::create(['guard_name' => 'api', 'name' => 'normal_user']);
         $permissions = Permission::pluck('id')->all();
         $role->syncPermissions($permissions);
         $user->assignRole([$role->id]);

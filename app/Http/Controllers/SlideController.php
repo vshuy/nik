@@ -41,13 +41,12 @@ class SlideController extends Controller
      */
     public function store(Request $request)
     {
-        $nameslide = $request->nameSlide;
         $result = $request->fileSlide->storeOnCloudinary();
         $path = $result->getSecurePath();
         $publicId = $result->getPublicId();
         $slide = new Slide();
         $slide->publicIdCloudinary = $publicId;
-        $slide->title = $nameslide;
+        $slide->title = $request->nameSlide;
         $slide->urlimg = $path;
         $slide->save();
         return Response()->json(true);

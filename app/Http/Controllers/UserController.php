@@ -18,7 +18,13 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $data = User::all();
+        // $data = User::orderBy('id', 'DESC')->paginate(5);
+        // $data = DB::table('model_has_roles')
+        //     ->join('users', 'users.id', '=', 'model_has_roles.model_id')
+        //     ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
+        //     ->select('users.id', 'users.email', 'roles.name')
+        //     ->get();
+        $data = User::with('roles')->get();
         return Response()->json($data);
     }
 

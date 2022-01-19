@@ -2,13 +2,18 @@
 
 namespace App;
 
-use Tymon\JWTAuth\Contracts\JWTSubject;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use App\Comment;
 use Spatie\Permission\Traits\HasRoles;
+use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Models\Role;
 
 class User extends Authenticatable implements JWTSubject
 {
+    protected $table = "users";
+    protected $guard_name = 'api';
+    protected $primaryKey = 'id';
     use Notifiable;
     use HasRoles;
 
@@ -59,5 +64,14 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
     }
 }

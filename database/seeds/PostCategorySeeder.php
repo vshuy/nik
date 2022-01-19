@@ -12,7 +12,7 @@ class PostCategorySeeder extends Seeder
      */
     public function run()
     {
-        DB::table('post_categories')->insert(['name' => 'product', 'describe' => 'None']);
-        DB::table('post_categories')->insert(['name' => 'new technology', 'describe' => 'None']);
+        DB::table('post_categories')->insert(['name' => 'Product', 'describe' => 'None']);
+        DB::table('post_categories')->insert(['name' => 'New technology', 'describe' => 'None']);
     }
 }
