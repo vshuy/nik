@@ -83,14 +83,11 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
-        $roles = Role::pluck('name', 'name')->all();
-        $userRole = $user->roles->pluck('name', 'name')->all();
-
+        $user = User::with('roles')->find($id);
+        $roles = Role::all();
         $aResponse = collect([
             "user" => $user,
             "roles" => $roles,
-            "userRole" => $userRole,
         ]);
         return Response()->json($aResponse);
     }
@@ -105,18 +102,15 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'roles' => 'required'
+            'role_name' => 'required'
         ]);
-
         $input = $request->all();
-
         $user = User::find($id);
         $user->update($input);
         DB::table('model_has_roles')->where('model_id', $id)->delete();
-
-        $user->assignRole($request->input('roles'));
-
+        $user->assignRole($request->input('role_name'));
         return Response()->json('User update successfully');
+        
     }
 
     /**
