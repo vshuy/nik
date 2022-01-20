@@ -86,7 +86,6 @@ Route::get('/role-assign', 'UserController@index');
 Route::post('/role-assign', 'UserController@store');
 Route::get('/role-assign/{id}', 'UserController@show');
 Route::put('/role-assign/{id}', 'UserController@update');
-Route::get('/role-create', 'UserController@create');
 Route::get('/role-assign/{id}/edit', 'UserController@edit');
 Route::delete('/role-assign/{id}', 'UserController@destroy');
 

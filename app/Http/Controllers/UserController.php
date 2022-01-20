@@ -110,7 +110,6 @@ class UserController extends Controller
         DB::table('model_has_roles')->where('model_id', $id)->delete();
         $user->assignRole($request->input('role_name'));
         return Response()->json('User update successfully');
-        
     }
 
     /**
