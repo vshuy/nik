@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class memories extends Model
+class DisplaySize extends Model
 {
     //
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\brand;
+use App\Brand;
 use Illuminate\Http\Request;
 
 class BrandController extends Controller
@@ -14,7 +14,7 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $listBrand = brand::all();
+        $listBrand = Brand::all();
         return response()->json($listBrand);
     }
 
@@ -42,10 +42,10 @@ class BrandController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\brand  $brand
+     * @param  \App\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function show(brand $brand)
+    public function show(Brand $brand)
     {
         //
     }
@@ -53,7 +53,7 @@ class BrandController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\brand  $brand
+     * @param  \App\Brand  $brand
      * @return \Illuminate\Http\Response
      */
     public function edit(brand $brand)

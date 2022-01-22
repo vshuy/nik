@@ -68,7 +68,7 @@ class ApiAuthController extends Controller
         $name = $request->name;
         $email = $request->email;
         $password = $request->password;
-        $user = User::create(['name' => $name, 'email' => $email, 'password' => Hash::make($password)]);
+        $user = User::create(['name' => $name, 'email' => $email, 'phone_number' => '0332591776', 'password' => Hash::make($password)]);
         $user->assignRole('normal_user');
         return response()->json(['success' => true]);
     }

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class rams extends Model
+class BillStatus extends Model
 {
     //
 }

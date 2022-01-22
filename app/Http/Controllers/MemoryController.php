@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\memories;
+use App\Memory;
 use Illuminate\Http\Request;
 
 class MemoryController extends Controller
@@ -14,7 +14,7 @@ class MemoryController extends Controller
      */
     public function index()
     {
-        $listMemory = memories::all();
+        $listMemory = Memory::all();
         return response()->json($listMemory);
     }
 
@@ -42,10 +42,10 @@ class MemoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\memories  $memories
+     * @param  \App\Memory  $memories
      * @return \Illuminate\Http\Response
      */
-    public function show(memories $memories)
+    public function show(Memory $memories)
     {
         //
     }
@@ -53,10 +53,10 @@ class MemoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\memories  $memories
+     * @param  \App\Memory  $memories
      * @return \Illuminate\Http\Response
      */
-    public function edit(memories $memories)
+    public function edit(Memory $memories)
     {
         //
     }
@@ -65,10 +65,10 @@ class MemoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\memories  $memories
+     * @param  \App\Memory  $memories
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, memories $memories)
+    public function update(Request $request, Memory $memories)
     {
         //
     }
@@ -76,10 +76,10 @@ class MemoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\memories  $memories
+     * @param  \App\Memory  $memories
      * @return \Illuminate\Http\Response
      */
-    public function destroy(memories $memories)
+    public function destroy(Memory $memories)
     {
         //
     }

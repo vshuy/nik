@@ -104,5 +104,10 @@ Route::delete('/category-post/{id}', 'CategoryPostController@destroy');
 Route::get('/brands', 'BrandController@index');
 Route::get('/rams', 'RamController@index');
 Route::get('/memories', 'MemoryController@index');
+Route::get('/displays', 'DisplayController@index');
+Route::get('/batteries', 'BatteryController@index');
+Route::get('/os', 'OperatingSystemController@index');
+
+Route::get('/bill-status', 'BillStatusController@index');
 
 Route::post('/getlistbillbyuserid', 'BillController@showbyuserid');

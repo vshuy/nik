@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\rams;
+use App\Ram;
 use Illuminate\Http\Request;
 
 class RamController extends Controller
@@ -14,7 +14,7 @@ class RamController extends Controller
      */
     public function index()
     {
-        $listRam = rams::all();
+        $listRam = Ram::all();
         return response()->json($listRam);
     }
 
@@ -42,10 +42,10 @@ class RamController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\rams  $rams
+     * @param  \App\Ram  $rams
      * @return \Illuminate\Http\Response
      */
-    public function show(rams $rams)
+    public function show(Ram $rams)
     {
         //
     }
@@ -53,10 +53,10 @@ class RamController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\rams  $rams
+     * @param  \App\Ram  $rams
      * @return \Illuminate\Http\Response
      */
-    public function edit(rams $rams)
+    public function edit(Ram $rams)
     {
         //
     }
@@ -65,10 +65,10 @@ class RamController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\rams  $rams
+     * @param  \App\Ram  $rams
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, rams $rams)
+    public function update(Request $request, Ram $rams)
     {
         //
     }
@@ -76,10 +76,10 @@ class RamController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\rams  $rams
+     * @param  \App\Ram  $rams
      * @return \Illuminate\Http\Response
      */
-    public function destroy(rams $rams)
+    public function destroy(Ram $rams)
     {
         //
     }

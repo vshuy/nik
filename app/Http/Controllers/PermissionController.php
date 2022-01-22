@@ -35,7 +35,7 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        Permission::create(['name' => $request->name]);
+        Permission::create(['guard_name' => 'api','name' => $request->name]);
         return Response()->json('permission created successfully');
     }
 

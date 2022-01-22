@@ -65,6 +65,7 @@ class ProductController extends Controller
         $anProduct->memory_id = $dataProduct->memory_id;
         $anProduct->ram_id = $dataProduct->ram_id;
         $anProduct->name = $dataProduct->name;
+        $anProduct->quantity = 1000;
         $anProduct->link_thumbnail = $path;
         $anProduct->publicIdCloudinary = $publicId;
         $anProduct->cost = $dataProduct->cost;
@@ -82,7 +83,8 @@ class ProductController extends Controller
      */
     public function show(Request $request)
     {
-        $detailProduct = Product::find($request->id);
+        // $detailProduct = Product::find($request->id);
+        $detailProduct = Product::with(['brand','memory','ram','category'])->find($request->id);
         return response()->json($detailProduct);
     }
 

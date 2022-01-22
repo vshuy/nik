@@ -1,5 +1,6 @@
 <?php
 
+use App\BillStatus;
 use Illuminate\Database\Seeder;
 use Database\Seeders\CategorySeeder;
 
@@ -20,6 +21,10 @@ class DatabaseSeeder extends Seeder
             PostCategorySeeder::class,
             RamsSeeder::class,
             UserSeeder::class,
+            BillStatusSeeder::class,
+            BatterySeeder::class,
+            DisplaySizeSeeder::class,
+            OperatingSystemSeeder::class,
         ]);
     }
 }

@@ -26,6 +26,18 @@ class Addforeignkey4 extends Migration
                 ->references('id')
                 ->on('memories')
                 ->onDelete('cascade');
+            $table->foreign('display_id')
+                ->references('id')
+                ->on('display_sizes')
+                ->onDelete('cascade');
+            $table->foreign('battery_id')
+                ->references('id')
+                ->on('batteries')
+                ->onDelete('cascade');
+            $table->foreign('operating_system_id')
+                ->references('id')
+                ->on('operating_systems')
+                ->onDelete('cascade');
         });
     }
 

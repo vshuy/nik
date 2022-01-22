@@ -19,8 +19,12 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('brand_id');
             $table->unsignedBigInteger('ram_id');
             $table->unsignedBigInteger('memory_id');
+            $table->unsignedBigInteger('display_id');
+            $table->unsignedBigInteger('battery_id');
+            $table->unsignedBigInteger('operating_system_id');
             $table->text('publicIdCloudinary');
             $table->text('name');
+            $table->unsignedBigInteger('quantity');
             $table->text('link_thumbnail');
             $table->longText('content_post');
             $table->double('cost', 20, 1);

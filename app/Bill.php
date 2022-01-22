@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class bill extends Model
+class Bill extends Model
 {
     protected $table = "bills";
     public $timestamps = true;

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBillsTable extends Migration
+class CreateBillStatusesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateBillsTable extends Migration
      */
     public function up()
     {
-        Schema::create('bills', function (Blueprint $table) {
+        Schema::create('bill_statuses', function (Blueprint $table) {
             $table->id()->unsigned();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('paid_status');
-            $table->double('total', 20, 1);
-            $table->timestamps();
+            $table->text('status');
         });
     }
 
@@ -29,6 +26,6 @@ class CreateBillsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bills');
+        Schema::dropIfExists('bill_statuses');
     }
 }
