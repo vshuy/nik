@@ -64,8 +64,11 @@ class ProductController extends Controller
         $anProduct->brand_id = $dataProduct->brand_id;
         $anProduct->memory_id = $dataProduct->memory_id;
         $anProduct->ram_id = $dataProduct->ram_id;
+        $anProduct->display_id = $dataProduct->display_id;
+        $anProduct->battery_id = $dataProduct->battery_id;
+        $anProduct->operating_system_id = $dataProduct->operating_system_id;
         $anProduct->name = $dataProduct->name;
-        $anProduct->quantity = 1000;
+        $anProduct->quantity = $dataProduct->quantity;
         $anProduct->link_thumbnail = $path;
         $anProduct->publicIdCloudinary = $publicId;
         $anProduct->cost = $dataProduct->cost;
