@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\bill;
-use App\detail_bill;
+use App\Bill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -41,20 +40,18 @@ class BillController extends Controller
      */
     public function store(Request $request)
     {
-        $idProducts = [];
-        $idProducts = $request->id_products;
-        $user_id = $request->user_id;
-        $sum = $request->total;
-        $abill = new bill();
-        $abill->user_id = $user_id;
-        $abill->total = floatval($sum);
-        $abill->paid = 0;
-        $abill->save();
-        $idBill = $abill->id;
-        foreach ($idProducts as &$item) {
+        $itemProducts = [];
+        $itemProducts = $request->items;
+        $aBill = new Bill();
+        $aBill->user_id = auth('api')->user()->id;
+        $aBill->total = floatval($request->total);
+        $aBill->paid_status = 1;
+        $aBill->save();
+        $idBill = $aBill->id;
+        foreach ($itemProducts as &$item) {
             $item['bill_id'] = $idBill;
         }
-        DB::table('detail_bills')->insert($idProducts);
+        DB::table('detail_bills')->insert($itemProducts);
         return response()->json(true);
     }
 
@@ -90,7 +87,7 @@ class BillController extends Controller
     public function showbyuserid(Request $request)
     {
         $listBill = DB::table('bills')
-            ->select('bills.id', 'bills.created_at', 'bills.total', 'bills.paid')
+            ->select('bills.id', 'bills.created_at', 'bills.total', 'bills.paid_status')
             ->where('bills.user_id', '=', $request->user_id)
             ->get();
         return response()->json($listBill);
@@ -116,7 +113,7 @@ class BillController extends Controller
      */
     public function update(Request $request, bill $bill)
     {
-        $aBill = bill::find($request->id);
+        $aBill = Bill::find($request->id);
         $aBill->paid = $request->check_value;
         $aBill->save();
         return Response()->json(true);
@@ -130,7 +127,7 @@ class BillController extends Controller
      */
     public function destroy(Request $request)
     {
-        $aBill = bill::find($request->id);
+        $aBill = Bill::find($request->id);
         $aBill->delete();
     }
 }
