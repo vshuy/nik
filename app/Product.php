@@ -29,4 +29,16 @@ class Product extends Model
     {
         return $this->belongsTo(Memory::class);
     }
+    public function display()
+    {
+        return $this->belongsTo(DisplaySize::class);
+    }
+    public function battery()
+    {
+        return $this->belongsTo(Battery::class);
+    }
+    public function opera()
+    {
+        return $this->belongsTo(OperatingSystem::class, 'operating_system_id', 'id');
+    }
 }

@@ -67,6 +67,7 @@ Route::post('/bill', 'BillController@store');
 Route::get('/bill/{id}', 'BillController@show');
 Route::put('/bill/{id}', 'BillController@update');
 Route::delete('/bill/{id}', 'BillController@destroy');
+Route::post('/bill/user', 'BillController@showbyuserid');
 
 Route::get('/post', 'PostController@index');
 Route::post('/post', 'PostController@store');
@@ -109,5 +110,3 @@ Route::get('/batteries', 'BatteryController@index');
 Route::get('/os', 'OperatingSystemController@index');
 
 Route::get('/bill-status', 'BillStatusController@index');
-
-Route::post('/getlistbillbyuserid', 'BillController@showbyuserid');

@@ -16,5 +16,6 @@ class BillStatusSeeder extends Seeder
         DB::table('bill_statuses')->insert(['status' => 'Confirmed paid']);
         DB::table('bill_statuses')->insert(['status' => 'Processing to deliver']);
         DB::table('bill_statuses')->insert(['status' => 'Delivered']);
+        DB::table('bill_statuses')->insert(['status' => 'Canceled']);
     }
 }

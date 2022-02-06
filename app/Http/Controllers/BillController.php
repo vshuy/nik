@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Bill;
+use App\DetailBill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -18,7 +19,7 @@ class BillController extends Controller
     {
         $listBill = DB::table('bills')
             ->join('users', 'users.id', '=', 'bills.user_id')
-            ->select('bills.id', 'users.name', 'bills.total', 'bills.paid')
+            ->select('bills.id', 'users.name', 'bills.total', 'bills.paid_status')
             ->get();
         return response()->json($listBill);
     }
@@ -63,33 +64,35 @@ class BillController extends Controller
      */
     public function show(Request $request)
     {
-        $listBill = DB::table('detail_bills')
-            ->join('products', 'products.id', '=', 'detail_bills.product_id')
-            ->select('products.id', 'products.name', 'products.urlimg', 'products.cost', 'detail_bills.amounts')
-            ->where('bill_id', '=', $request->id)
-            ->get();
-        $billInfo = DB::table('bills')
-            ->join('users', 'users.id', '=', 'bills.user_id')
-            ->select('bills.id', 'users.name', 'bills.total')
-            ->where('bills.id', '=', $request->id)
-            ->get();
-        $userInfor = DB::table('users')
-            ->select('users.name', 'users.email')
-            ->where('users.id', '=', $billInfo[0]->id)
-            ->get();
+        // $listBill = DB::table('detail_bills')
+        //     ->join('products', 'products.id', '=', 'detail_bills.product_id')
+        //     ->select('products.id', 'products.name', 'products.link_thumbnail', 'products.cost', 'detail_bills.amounts')
+        //     ->where('bill_id', '=', $request->id)
+        //     ->get();
+        // $billInfo = DB::table('bills')
+        //     ->join('users', 'users.id', '=', 'bills.user_id')
+        //     ->select('bills.id', 'users.name', 'bills.total')
+        //     ->where('bills.id', '=', $request->id)
+        //     ->get();
+        // $userInfor = DB::table('users')
+        //     ->select('users.name', 'users.email')
+        //     ->where('users.id', '=', $billInfo[0]->id)
+        //     ->get();
+        // $result = collect([
+        //     "userInfor" => $userInfor,
+        //     "listBill" => $listBill,
+        //     "billInfor" => $billInfo,
+        // ]);
         $result = collect([
-            "userInfor" => $userInfor,
-            "listBill" => $listBill,
-            "billInfor" => $billInfo,
+            "bill" => Bill::with(['billStatus', 'user'])->find($request->id),
+            "detailBill" => DetailBill::with(['product'])->where('bill_id', '=', $request->id)->get(),
         ]);
         return $result;
     }
     public function showbyuserid(Request $request)
     {
-        $listBill = DB::table('bills')
-            ->select('bills.id', 'bills.created_at', 'bills.total', 'bills.paid_status')
-            ->where('bills.user_id', '=', $request->user_id)
-            ->get();
+        $user_id = auth('api')->user()->id;
+        $listBill = Bill::with(['billStatus', 'user'])->whereUserId($user_id)->get();
         return response()->json($listBill);
     }
 
@@ -114,7 +117,7 @@ class BillController extends Controller
     public function update(Request $request, bill $bill)
     {
         $aBill = Bill::find($request->id);
-        $aBill->paid = $request->check_value;
+        $aBill->paid_status = $request->paid_status;
         $aBill->save();
         return Response()->json(true);
     }

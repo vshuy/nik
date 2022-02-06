@@ -87,7 +87,7 @@ class ProductController extends Controller
     public function show(Request $request)
     {
         // $detailProduct = Product::find($request->id);
-        $detailProduct = Product::with(['brand','memory','ram','category'])->find($request->id);
+        $detailProduct = Product::with(['brand', 'memory', 'ram', 'category', 'display', 'battery', 'opera'])->find($request->id);
         return response()->json($detailProduct);
     }
 
