@@ -27,7 +27,7 @@ class ApiAuthController extends Controller
     public function login(Request $request)
     {
         $rules = [
-            'email'    => 'required|email',
+            'email'    => 'required|email|max:88',
             'password' => 'required',
         ];
         $input = $request->only('email', 'password');
@@ -56,19 +56,21 @@ class ApiAuthController extends Controller
     public function register(Request $request)
     {
         $rules = [
-            'name' => 'required',
-            'email'    => 'unique:users|required|email',
-            'password' => 'required',
+            'name' => 'required|max:100',
+            'email'    => 'unique:users|required|email|string',
+            'phone'    => 'digits:10',
+            'password' => 'required|min:8',
         ];
-        $input = $request->only('name', 'email', 'password');
+        $input = $request->only('name', 'email', 'password', 'phone');
         $validator = Validator::make($input, $rules);
         if ($validator->fails()) {
             return response()->json(['success' => false, 'error' => $validator->messages()]);
         }
         $name = $request->name;
         $email = $request->email;
+        $phone = $request->phone;
         $password = $request->password;
-        $user = User::create(['name' => $name, 'email' => $email, 'phone_number' => '0332591776', 'password' => Hash::make($password)]);
+        $user = User::create(['name' => $name, 'email' => $email, 'phone_number' => $phone, 'password' => Hash::make($password)]);
         $user->assignRole('normal_user');
         return response()->json(['success' => true]);
     }

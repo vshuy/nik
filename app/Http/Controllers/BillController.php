@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Bill;
 use App\DetailBill;
+use App\Mail\BillNotify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class BillController extends Controller
 {
@@ -17,11 +19,12 @@ class BillController extends Controller
      */
     public function index()
     {
-        $listBill = DB::table('bills')
-            ->join('users', 'users.id', '=', 'bills.user_id')
-            ->select('bills.id', 'users.name', 'bills.total', 'bills.paid_status')
-            ->get();
-        return response()->json($listBill);
+        // $listBill = DB::table('bills')
+        //     ->join('users', 'users.id', '=', 'bills.user_id')
+        //     ->select('bills.id', 'users.name', 'bills.total', 'bills.paid_status')
+        //     ->get();
+        $Bills = Bill::with(['billStatus', 'user'])->get();
+        return response()->json($Bills);
     }
 
     /**
@@ -46,13 +49,25 @@ class BillController extends Controller
         $aBill = new Bill();
         $aBill->user_id = auth('api')->user()->id;
         $aBill->total = floatval($request->total);
-        $aBill->paid_status = 1;
+        $aBill->paid_status = $request->paid_status;
         $aBill->save();
         $idBill = $aBill->id;
         foreach ($itemProducts as &$item) {
             $item['bill_id'] = $idBill;
         }
         DB::table('detail_bills')->insert($itemProducts);
+
+        $bill = Bill::with(['billStatus', 'user'])->find($aBill->id);
+        $detailBill = DetailBill::with(['product'])->where('bill_id', '=', $aBill->id)->get();
+        $result = collect([
+            "bill" => $bill,
+            "detailBill" => $detailBill,
+        ]);
+
+        Mail::send('mail.notifyBill', array('result' => $result), function ($message) {
+            $message->to(auth('api')->user()->email, 'Checkout information')->subject('Notify checkout information');
+        });
+
         return response()->json(true);
     }
 

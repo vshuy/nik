@@ -33,6 +33,12 @@ Route::post('/user/register', 'ApiAuthController@register');
 Route::post('/user/logout', 'ApiAuthController@logout');
 Route::post('/user/me', 'ApiAuthController@me');
 
+Route::get('/address', 'AddressController@index');
+Route::post('/address', 'AddressController@store');
+Route::get('/address/{id}', 'AddressController@show');
+Route::put('/address/{id}', 'AddressController@update');
+Route::delete('/address/{id}', 'AddressController@destroy');
+
 Route::get('/category', 'CategoryController@index');
 Route::post('/category', 'CategoryController@store');
 Route::get('/category/{id}', 'CategoryController@show');
