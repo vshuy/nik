@@ -19,6 +19,10 @@ class Bill extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function address()
+    {
+        return $this->belongsTo(Address::class);
+    }
     public function details()
     {
         return $this->hasMany(DetailBill::class);

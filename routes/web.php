@@ -40,7 +40,7 @@ Route::get('/sendmail', function () {
         "bill" => $bill,
         "detailBill" => $detailBill,
     ]);
-    Mail::send('mail.notifyBill', array('result' =>$result), function ($message) {
+    Mail::send('mail.notifyBill', array('result' => $result), function ($message) {
         $message->to('m1342a65@gmail.com', 'Checkout')->subject('Notify checkout');
     });
     return true;

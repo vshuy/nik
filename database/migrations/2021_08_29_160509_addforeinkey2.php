@@ -38,6 +38,10 @@ class Addforeinkey2 extends Migration
                 ->references('id')
                 ->on('bill_statuses')
                 ->onDelete('cascade');
+            $table->foreign('address_id')
+                ->references('id')
+                ->on('addresses')
+                ->onDelete('cascade');
         });
         Schema::table('detail_bills', function (Blueprint $table) {
             $table->foreign('bill_id')

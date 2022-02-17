@@ -16,9 +16,13 @@ class CreateBillsTable extends Migration
         Schema::create('bills', function (Blueprint $table) {
             $table->id()->unsigned();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('address_id');
             $table->unsignedBigInteger('paid_status');
             $table->double('total', 20, 1);
             $table->timestamps();
+        });
+        Schema::table('bills', function (Blueprint $table) {
+
         });
     }
 

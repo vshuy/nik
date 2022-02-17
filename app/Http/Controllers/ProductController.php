@@ -23,10 +23,19 @@ class ProductController extends Controller
         $list = Product::all();
         return response()->json($list);
     }
-    public function indexPaginate()
+    public function indexPaginate(Request $request)
     {
-        $list = Product::paginate(8);
-        return response()->json($list);
+        $products = Product::query()
+            ->brand($request)
+            ->ram($request)
+            ->battery($request)
+            ->memory($request)
+            ->asc($request)
+            ->desc($request)
+            ->paginate(8);
+        return response()->json($products);
+        // $list = Product::paginate(8);
+        // return response()->json($list);
     }
     public function search(Request $request)
     {

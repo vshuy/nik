@@ -50,6 +50,7 @@ class BillController extends Controller
         $aBill->user_id = auth('api')->user()->id;
         $aBill->total = floatval($request->total);
         $aBill->paid_status = $request->paid_status;
+        $aBill->address_id = $request->address_id;
         $aBill->save();
         $idBill = $aBill->id;
         foreach ($itemProducts as &$item) {
@@ -99,7 +100,7 @@ class BillController extends Controller
         //     "billInfor" => $billInfo,
         // ]);
         $result = collect([
-            "bill" => Bill::with(['billStatus', 'user'])->find($request->id),
+            "bill" => Bill::with(['billStatus', 'user', 'address'])->find($request->id),
             "detailBill" => DetailBill::with(['product'])->where('bill_id', '=', $request->id)->get(),
         ]);
         return $result;
@@ -107,7 +108,7 @@ class BillController extends Controller
     public function showbyuserid(Request $request)
     {
         $user_id = auth('api')->user()->id;
-        $listBill = Bill::with(['billStatus', 'user'])->whereUserId($user_id)->get();
+        $listBill = Bill::with(['billStatus', 'user', 'address'])->whereUserId($user_id)->get();
         return response()->json($listBill);
     }
 
