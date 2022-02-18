@@ -81,7 +81,7 @@ class ProductController extends Controller
         $anProduct->link_thumbnail = $path;
         $anProduct->publicIdCloudinary = $publicId;
         $anProduct->cost = $dataProduct->cost;
-        $anProduct->old_cost = $dataProduct->cost;
+        $anProduct->old_cost = $dataProduct->old_cost;
         $anProduct->content_post = $dataProduct->content_post;
         $anProduct->save();
         return Response()->json(true);
