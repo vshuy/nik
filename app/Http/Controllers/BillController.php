@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Bill;
+use App\User;
 use App\DetailBill;
 use App\Mail\BillNotify;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
@@ -105,11 +107,11 @@ class BillController extends Controller
         ]);
         return $result;
     }
-    public function showbyuserid(Request $request)
+    public function showbyuserid()
     {
         $user_id = auth('api')->user()->id;
-        $listBill = Bill::with(['billStatus', 'user', 'address'])->whereUserId($user_id)->get();
-        return response()->json($listBill);
+        $bills = Bill::with(['billStatus', 'user', 'address'])->whereUserId($user_id)->get();
+        return response()->json($bills);
     }
 
     /**
@@ -121,6 +123,23 @@ class BillController extends Controller
     public function edit(bill $bill)
     {
         //
+    }
+
+    public function getBillsToday()
+    {
+        // $listBill = Bill::with(['billStatus', 'user', 'address'])->whereDate('created_at', '=', Carbon::today()->toDateString())->get();
+        $today = Carbon::today()->toDateString();
+        $new_bills = Bill::whereDate('created_at', '=', $today)->count();
+        $new_customers = User::whereDate('created_at', '=', $today)->count();
+        $purchases_today = DB::table('bills')
+            ->whereDate('created_at', '=', $today)
+            ->sum('bills.total');
+        $result = collect([
+            "new_bills" => $new_bills,
+            "new_customers" => $new_customers,
+            "purchases_today" => $purchases_today,
+        ]);
+        return response()->json($result);
     }
 
     /**

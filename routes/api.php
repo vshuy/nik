@@ -75,6 +75,8 @@ Route::put('/bill/{id}', 'BillController@update');
 Route::delete('/bill/{id}', 'BillController@destroy');
 Route::post('/bill/user', 'BillController@showbyuserid');
 
+Route::get('/get-bill-statistic', 'BillController@getBillsToday');
+
 Route::get('/post', 'PostController@index');
 Route::post('/post', 'PostController@store');
 Route::get('/post/{id}', 'PostController@show');

@@ -15,6 +15,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     protected $table = "users";
     protected $guard_name = 'api';
     protected $primaryKey = 'id';
+    public $timestamps = true;
     use Notifiable;
     use HasRoles;
 
@@ -43,6 +44,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'created_at' => 'datetime:Y-m-d',
     ];
 
     // Rest omitted for brevity
