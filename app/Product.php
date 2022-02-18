@@ -71,14 +71,14 @@ class Product extends Model
     }
     public function scopeDesc($query, $request)
     {
-        if ($request->has('desc')) {
+        if ($request->has('order') && $request->order == "desc") {
             $query->orderBy('cost', 'desc');
         }
         return $query;
     }
     public function scopeAsc($query, $request)
     {
-        if ($request->has('asc')) {
+        if ($request->has('order') && $request->order == "asc") {
             $query->orderBy('cost', 'asc');
         }
         return $query;

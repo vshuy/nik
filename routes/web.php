@@ -25,14 +25,6 @@ Auth::routes(['verify' => true]);
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/sendmaildirect', function () {
-    $result = collect([
-        "bill" => Bill::with(['billStatus', 'user'])->find(4),
-        "detailBill" => DetailBill::with(['product'])->where('bill_id', '=', 4)->get(),
-    ]);
-
-    return view('mail.notifyBill')->with(['result' => $result]);
-});
 Route::get('/sendmail', function () {
     $bill = Bill::with(['billStatus', 'user'])->find(4);
     $detailBill = DetailBill::with(['product'])->where('bill_id', '=', 4)->get();
