@@ -24,8 +24,8 @@ class UserController extends Controller
         //     ->join('roles', 'roles.id', '=', 'model_has_roles.role_id')
         //     ->select('users.id', 'users.email', 'roles.name')
         //     ->get();
-        $data = User::with('roles')->get();
-        return Response()->json($data);
+        $user = User::with('roles')->get();
+        return Response()->json($user);
     }
 
     /**
@@ -85,11 +85,11 @@ class UserController extends Controller
     {
         $user = User::with('roles')->find($id);
         $roles = Role::all();
-        $aResponse = collect([
+        $result = collect([
             "user" => $user,
             "roles" => $roles,
         ]);
-        return Response()->json($aResponse);
+        return Response()->json($result);
     }
 
     /**

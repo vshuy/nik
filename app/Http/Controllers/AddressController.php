@@ -16,8 +16,8 @@ class AddressController extends Controller
     public function index()
     {
         $user_id = auth('api')->user()->id;
-        $listAddress = User::with(['addresses'])->whereId($user_id)->get();
-        return response()->json($listAddress);
+        $addresses = User::with(['addresses'])->whereId($user_id)->get();
+        return response()->json($addresses);
     }
     /**
      * Show the form for creating a new resource.

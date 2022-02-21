@@ -14,8 +14,8 @@ class CategoryPostController extends Controller
      */
     public function index()
     {
-        $listCategory = CategoryPost::all();
-        return response()->json($listCategory);
+        $categories = CategoryPost::all();
+        return response()->json($categories);
     }
 
     /**
@@ -89,7 +89,7 @@ class CategoryPostController extends Controller
      */
     public function destroy(Request $request)
     {
-        $aCategory = CategoryPost::find($request->id);
-        $aCategory->delete();
+        $category = CategoryPost::find($request->id);
+        $category->delete();
     }
 }

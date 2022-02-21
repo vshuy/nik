@@ -9,7 +9,7 @@ class BillStatusController extends Controller
 {
     public function index()
     {
-        $listBrand = BillStatus::all();
-        return response()->json($listBrand);
+        $bill_status = BillStatus::all();
+        return response()->json($bill_status);
     }
 }

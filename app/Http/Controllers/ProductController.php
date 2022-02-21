@@ -20,8 +20,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $list = Product::all();
-        return response()->json($list);
+        $products = Product::all();
+        return response()->json($products);
     }
     public function indexPaginate(Request $request)
     {
@@ -39,11 +39,11 @@ class ProductController extends Controller
     }
     public function search(Request $request)
     {
-        $list = DB::table('products')
+        $products = DB::table('products')
             ->select('products.id', 'products.name')
             ->where('products.name', 'like', '%' . $request->text . '%')
             ->get();
-        return response()->json($list);
+        return response()->json($products);
     }
 
     /**
@@ -68,22 +68,22 @@ class ProductController extends Controller
         $result = $request->file_img_product->storeOnCloudinary();
         $path = $result->getSecurePath();
         $publicId = $result->getPublicId();
-        $anProduct = new Product();
-        $anProduct->category_id = $dataProduct->category_id;
-        $anProduct->brand_id = $dataProduct->brand_id;
-        $anProduct->memory_id = $dataProduct->memory_id;
-        $anProduct->ram_id = $dataProduct->ram_id;
-        $anProduct->display_id = $dataProduct->display_id;
-        $anProduct->battery_id = $dataProduct->battery_id;
-        $anProduct->operating_system_id = $dataProduct->operating_system_id;
-        $anProduct->name = $dataProduct->name;
-        $anProduct->quantity = $dataProduct->quantity;
-        $anProduct->link_thumbnail = $path;
-        $anProduct->publicIdCloudinary = $publicId;
-        $anProduct->cost = $dataProduct->cost;
-        $anProduct->old_cost = $dataProduct->old_cost;
-        $anProduct->content_post = $dataProduct->content_post;
-        $anProduct->save();
+        $product = new Product();
+        $product->category_id = $dataProduct->category_id;
+        $product->brand_id = $dataProduct->brand_id;
+        $product->memory_id = $dataProduct->memory_id;
+        $product->ram_id = $dataProduct->ram_id;
+        $product->display_id = $dataProduct->display_id;
+        $product->battery_id = $dataProduct->battery_id;
+        $product->operating_system_id = $dataProduct->operating_system_id;
+        $product->name = $dataProduct->name;
+        $product->quantity = $dataProduct->quantity;
+        $product->link_thumbnail = $path;
+        $product->publicIdCloudinary = $publicId;
+        $product->cost = $dataProduct->cost;
+        $product->old_cost = $dataProduct->old_cost;
+        $product->content_post = $dataProduct->content_post;
+        $product->save();
         return Response()->json(true);
     }
 
@@ -96,8 +96,8 @@ class ProductController extends Controller
     public function show(Request $request)
     {
         // $detailProduct = Product::find($request->id);
-        $detailProduct = Product::with(['brand', 'memory', 'ram', 'category', 'display', 'battery', 'opera'])->find($request->id);
-        return response()->json($detailProduct);
+        $product = Product::with(['brand', 'memory', 'ram', 'category', 'display', 'battery', 'opera'])->find($request->id);
+        return response()->json($product);
     }
 
     /**
@@ -120,12 +120,12 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $anProduct = Product::find($request->id);
-        $anProduct->category_id = $request->category_id;
-        $anProduct->name = $request->name;
-        $anProduct->cost = $request->cost;
-        $anProduct->content_post = $request->content_post;
-        $anProduct->save();
+        $product = Product::find($request->id);
+        $product->category_id = $request->category_id;
+        $product->name = $request->name;
+        $product->cost = $request->cost;
+        $product->content_post = $request->content_post;
+        $product->save();
         return Response()->json(true);
     }
 
@@ -137,9 +137,9 @@ class ProductController extends Controller
      */
     public function destroy(Request $request)
     {
-        $aProduct = Product::find($request->id);
+        $product = Product::find($request->id);
         $cloudinary = new Cloudinary();
-        $cloudinary->uploadApi()->destroy($aProduct->publicIdCloudinary);
-        $aProduct->delete();
+        $cloudinary->uploadApi()->destroy($product->publicIdCloudinary);
+        $product->delete();
     }
 }

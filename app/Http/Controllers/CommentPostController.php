@@ -56,12 +56,12 @@ class CommentPostController extends Controller
      */
     public function show(Request $request)
     {
-        $listComment = DB::table('comment_posts')
+        $comments = DB::table('comment_posts')
             ->join('users', 'users.id', '=', 'comment_posts.user_id')
             ->select('comment_posts.id', 'comment_posts.user_id', 'users.name', 'comment_posts.contents')
             ->where('post_id', '=', $request->id)
             ->get();
-        return Response()->json($listComment);
+        return Response()->json($comments);
     }
 
     /**
@@ -98,8 +98,8 @@ class CommentPostController extends Controller
      */
     public function destroy(Request $request)
     {
-        $aComment = CommentPost::find($request->id);
-        $aComment->delete();
+        $comment = CommentPost::find($request->id);
+        $comment->delete();
         return Response()->json(true);
     }
 }

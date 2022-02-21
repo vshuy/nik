@@ -19,8 +19,8 @@ class SlideController extends Controller
      */
     public function index()
     {
-        $list = Slide::all();
-        return response()->json($list);
+        $slides = Slide::all();
+        return response()->json($slides);
     }
 
     /**
@@ -94,9 +94,9 @@ class SlideController extends Controller
      */
     public function destroy(Request $request)
     {
-        $aSlide = Slide::find($request->id);
+        $slide = Slide::find($request->id);
         $cloudinary = new Cloudinary();
-        $cloudinary->uploadApi()->destroy($aSlide->publicIdCloudinary);
-        $aSlide->delete();
+        $cloudinary->uploadApi()->destroy($slide->publicIdCloudinary);
+        $slide->delete();
     }
 }

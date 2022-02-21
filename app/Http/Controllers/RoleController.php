@@ -74,11 +74,11 @@ class RoleController extends Controller
         $rolePermissions = Permission::join("role_has_permissions", "role_has_permissions.permission_id", "=", "permissions.id")
             ->where("role_has_permissions.role_id", $id)
             ->get();
-        $aResponse = collect([
+        $result = collect([
             "role" => $role,
             "rolePermissions" => $rolePermissions,
         ]);
-        return Response()->json($aResponse);
+        return Response()->json($result);
     }
 
     /**
@@ -95,12 +95,12 @@ class RoleController extends Controller
             ->pluck('role_has_permissions.permission_id', 'role_has_permissions.permission_id')
             ->all();
 
-        $aResponse = collect([
+        $result = collect([
             "role" => $role,
             "permissions" => $permissions,
             "rolePermissions" => $rolePermissions,
         ]);
-        return Response()->json($aResponse);
+        return Response()->json($result);
     }
 
     /**

@@ -9,7 +9,7 @@ class DisplaySizeController extends Controller
 {
     public function index()
     {
-        $listBrand = DisplaySize::all();
-        return response()->json($listBrand);
+        $displays = DisplaySize::all();
+        return response()->json($displays);
     }
 }

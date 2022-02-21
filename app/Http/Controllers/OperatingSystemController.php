@@ -9,7 +9,7 @@ class OperatingSystemController extends Controller
 {
     public function index()
     {
-        $listBrand = OperatingSystem::all();
-        return response()->json($listBrand);
+        $operates = OperatingSystem::all();
+        return response()->json($operates);
     }
 }

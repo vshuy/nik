@@ -20,8 +20,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $listCategory = Category::all();
-        return response()->json($listCategory);
+        $categories = Category::all();
+        return response()->json($categories);
     }
 
     /**
@@ -59,10 +59,10 @@ class CategoryController extends Controller
      */
     public function show(Request $request)
     {
-        $detailCategories = DB::table('categories')
+        $category = DB::table('categories')
             ->where('id', '=', $request->id)
             ->get();
-        return Response()->json($detailCategories);
+        return Response()->json($category);
     }
 
     /**
@@ -100,7 +100,7 @@ class CategoryController extends Controller
      */
     public function destroy(Request $request)
     {
-        $aCategory = Category::find($request->id);
-        $aCategory->delete();
+        $category = Category::find($request->id);
+        $category->delete();
     }
 }

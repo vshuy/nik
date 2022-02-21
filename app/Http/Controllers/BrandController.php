@@ -14,8 +14,8 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $listBrand = Brand::all();
-        return response()->json($listBrand);
+        $brands = Brand::all();
+        return response()->json($brands);
     }
 
     /**

@@ -14,8 +14,8 @@ class RamController extends Controller
      */
     public function index()
     {
-        $listRam = Ram::all();
-        return response()->json($listRam);
+        $rams = Ram::all();
+        return response()->json($rams);
     }
 
     /**

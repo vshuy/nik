@@ -14,8 +14,8 @@ class MemoryController extends Controller
      */
     public function index()
     {
-        $listMemory = Memory::all();
-        return response()->json($listMemory);
+        $memories = Memory::all();
+        return response()->json($memories);
     }
 
     /**

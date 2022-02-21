@@ -14,8 +14,8 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        $list = Permission::all();
-        return response()->json($list);
+        $permissions = Permission::all();
+        return response()->json($permissions);
     }
 
     /**

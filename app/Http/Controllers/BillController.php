@@ -149,11 +149,11 @@ class BillController extends Controller
      * @param  \App\bill  $bill
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, bill $bill)
+    public function update(Request $request)
     {
-        $aBill = Bill::find($request->id);
-        $aBill->paid_status = $request->paid_status;
-        $aBill->save();
+        $bill = Bill::find($request->id);
+        $bill->paid_status = $request->paid_status;
+        $bill->save();
         return Response()->json(true);
     }
 
@@ -165,7 +165,7 @@ class BillController extends Controller
      */
     public function destroy(Request $request)
     {
-        $aBill = Bill::find($request->id);
-        $aBill->delete();
+        $bill = Bill::find($request->id);
+        $bill->delete();
     }
 }

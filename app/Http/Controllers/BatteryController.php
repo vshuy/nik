@@ -9,7 +9,7 @@ class BatteryController extends Controller
 {
     public function index()
     {
-        $listBrand = Battery::all();
-        return response()->json($listBrand);
+        $brands = Battery::all();
+        return response()->json($brands);
     }
 }

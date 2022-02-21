@@ -17,8 +17,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $listPost =  Post::all();
-        return response()->json($listPost);
+        $posts =  Post::all();
+        return response()->json($posts);
     }
 
     /**
@@ -97,9 +97,9 @@ class PostController extends Controller
      */
     public function destroy(Request $request)
     {
-        $aPost = Post::find($request->id);
+        $post = Post::find($request->id);
         $cloudinary = new Cloudinary();
-        $cloudinary->uploadApi()->destroy($aPost->publicIdCloudinary);
-        $aPost->delete();
+        $cloudinary->uploadApi()->destroy($post->publicIdCloudinary);
+        $post->delete();
     }
 }
