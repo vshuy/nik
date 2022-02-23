@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductCreateRequest;
 use App\Product;
 use Cloudinary\Cloudinary;
 use Illuminate\Http\Request;
@@ -62,7 +63,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductCreateRequest $request)
     {
         $dataProduct = json_decode($request->product_data);
         $result = $request->file_img_product->storeOnCloudinary();

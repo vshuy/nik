@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 
 
 use Illuminate\Http\Response;
+use App\Http\Requests\LoginRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\RegisterRequest;
 use Illuminate\Support\Facades\Validator;
 
 class ApiAuthController extends Controller
@@ -24,53 +26,29 @@ class ApiAuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $rules = [
-            'email'    => 'required|email|max:88',
-            'password' => 'required',
-        ];
-        $input = $request->only('email', 'password');
-        $validator = Validator::make($input, $rules);
-        if ($validator->fails()) {
-            return response()->json(['status' => false, 'error' => $validator->messages()]);
-        } else {
-            $credentials = request(['email', 'password']);
-            if (!$token = Auth::guard('api')->attempt($credentials)) {
-                return response()->json([
-                    'status' => false,
-                    'token' => '',
-                    'user_if' => '',
-                    'error' => [['email or password incorrect']],
-                ]);
-            }
-            return response()
-                ->json([
-                    'status' => true,
-                    'token' => $token,
-                    'user_if' => auth('api')->user(),
-                    'error' => [],
-                ]);
+        $credentials = request(['email', 'password']);
+        if (!$token = Auth::guard('api')->attempt($credentials)) {
+            return response()->json([
+                'status' => false,
+                'token' => '',
+                'user_if' => '',
+                'error' => [['email or password incorrect']],
+            ]);
         }
+        return response()
+            ->json([
+                'status' => true,
+                'token' => $token,
+                'user_if' => auth('api')->user(),
+                'error' => [],
+            ]);
     }
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
-        $rules = [
-            'name' => 'required|max:100',
-            'email'    => 'unique:users|required|email|string',
-            'phone'    => 'digits:10',
-            'password' => 'required|min:8',
-        ];
-        $input = $request->only('name', 'email', 'password', 'phone');
-        $validator = Validator::make($input, $rules);
-        if ($validator->fails()) {
-            return response()->json(['success' => false, 'error' => $validator->messages()]);
-        }
-        $name = $request->name;
-        $email = $request->email;
-        $phone = $request->phone;
-        $password = $request->password;
-        $user = User::create(['name' => $name, 'email' => $email, 'phone_number' => $phone, 'password' => Hash::make($password)]);
+        $input = $request->all();
+        $user = User::create(['name' => $input['name'], 'email' => $input['email'], 'phone_number' => $input['phone'], 'password' => Hash::make($input['password'])]);
         $user->assignRole('normal_user');
         return response()->json(['success' => true]);
     }
