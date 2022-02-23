@@ -35,8 +35,6 @@ class ProductController extends Controller
             ->desc($request)
             ->paginate(8);
         return response()->json($products);
-        // $list = Product::paginate(8);
-        // return response()->json($list);
     }
     public function search(Request $request)
     {
@@ -123,8 +121,16 @@ class ProductController extends Controller
     {
         $product = Product::find($request->id);
         $product->category_id = $request->category_id;
+        $product->brand_id = $request->brand_id;
+        $product->memory_id = $request->memory_id;
+        $product->ram_id = $request->ram_id;
+        $product->display_id = $request->display_id;
+        $product->battery_id = $request->battery_id;
+        $product->operating_system_id = $request->operating_system_id;
         $product->name = $request->name;
         $product->cost = $request->cost;
+        $product->old_cost = $request->old_cost;
+        $product->quantity = $request->quantity;
         $product->content_post = $request->content_post;
         $product->save();
         return Response()->json(true);

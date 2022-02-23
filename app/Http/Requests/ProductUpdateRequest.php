@@ -6,20 +6,8 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class ProductCreateRequest extends FormRequest
+class ProductUpdateRequest extends FormRequest
 {
-    //
-
-    /**
-     * Prepare the data for validation.
-     *
-     * @return void
-     */
-    protected function prepareForValidation()
-    {
-        $tmp = json_decode($this->product_data);
-        $this->merge((array)$tmp);
-    }
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -38,8 +26,8 @@ class ProductCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'file_img_product' => 'required|mimes:jpeg,jpg,png,gif|max:100000',
-            'category_id' => 'required|required|exists:categories,id',
+            'id' => 'required|exists:products,id',
+            'category_id' => 'required|exists:categories,id',
             'brand_id' => 'required|exists:brands,id',
             'memory_id' => 'required|exists:memories,id',
             'ram_id' => 'required|exists:rams,id',
@@ -53,7 +41,6 @@ class ProductCreateRequest extends FormRequest
             'content_post' => 'required',
         ];
     }
-
     /**
      * ...
      * @param  \Illuminate\Contracts\Validation\Validator  $validator
