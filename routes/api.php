@@ -1,7 +1,5 @@
 <?php
 
-use App\Product;
-use App\CategoryPost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BillController;
@@ -24,9 +22,6 @@ use App\Http\Controllers\RoleController;
 */
 
 
-Route::get('/gettoken', function () {
-    return "hello from heroku ab";
-});
 
 Route::post('/user/login', 'ApiAuthController@login');
 Route::post('/user/register', 'ApiAuthController@register');

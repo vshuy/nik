@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\DetailBill;
-use App\Model\Bill;
-use App\Mail\BillNotify;
+use App\Models\Bill;
+use App\Models\User;
+use App\Models\DetailBill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -117,7 +116,7 @@ class BillController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\bill  $bill
+     * @param  \App\Bill  $bill
      * @return \Illuminate\Http\Response
      */
     public function edit(bill $bill)
@@ -160,7 +159,7 @@ class BillController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\bill  $bill
+     * @param  \App\Bill  $bill
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request)

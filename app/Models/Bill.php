@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Model;
+namespace App\Models;
 
-use App\Model\User;
-use App\Model\Address;
-use App\Model\BillStatus;
-use App\Model\DetailBill;
+use App\Models\User;
+use App\Models\Address;
+use App\Models\BillStatus;
+use App\Models\DetailBill;
 use Illuminate\Database\Eloquent\Model;
 
 class Bill extends Model

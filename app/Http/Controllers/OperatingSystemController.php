@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Model\OperatingSystem;
+use App\Models\OperatingSystem;
 
 class OperatingSystemController extends Controller
 {

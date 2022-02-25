@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\DisplaySize;
+use App\Models\DisplaySize;
 use Illuminate\Http\Request;
 
 class DisplaySizeController extends Controller

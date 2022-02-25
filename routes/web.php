@@ -1,8 +1,6 @@
 <?php
 
-use App\Bill;
-use App\DetailBill;
-use App\Mail\BillNotify;
+
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 

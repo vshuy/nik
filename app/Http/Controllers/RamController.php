@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Model\Ram;
+use App\Models\Ram;
 use Illuminate\Http\Request;
 
 class RamController extends Controller
