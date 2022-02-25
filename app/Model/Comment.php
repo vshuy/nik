@@ -1,9 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Model;
 
-use App\User;
-use App\Product;
+use App\Model\User;
+use App\Model\Product;
 use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
@@ -17,10 +17,10 @@ class Comment extends Model
     // protected $with = ['user', 'product'];
     public function product()
     {
-        return $this->belongsTo('App\Product');
+        return $this->belongsTo(Product::class);
     }
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(User::class);
     }
 }

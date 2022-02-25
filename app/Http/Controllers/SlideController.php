@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Slide;
+use App\Model\Slide;
 use Cloudinary\Cloudinary;
 use Illuminate\Http\Request;
 

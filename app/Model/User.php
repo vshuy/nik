@@ -1,8 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Model;
 
-use App\Comment;
+use App\Model\Comment;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -71,7 +71,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 
     public function comments()
     {
-        return $this->hasMany('App\Comment');
+        return $this->hasMany(Comment::class);
     }
     public function role()
     {
@@ -79,6 +79,6 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     }
     public function addresses()
     {
-        return $this->hasMany('App\Address');
+        return $this->hasMany(Address::class);
     }
 }

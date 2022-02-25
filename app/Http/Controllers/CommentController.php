@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Comment;
 use App\Product;
+use App\Model\Comment;
 use Illuminate\Http\Request;
 use Laravel\Ui\Presets\React;
 use Illuminate\Support\Facades\DB;

@@ -1,7 +1,15 @@
 <?php
 
-namespace App;
+namespace App\Model;
 
+use App\Model\Ram;
+use App\Model\Brand;
+use App\Model\Memory;
+use App\Model\Battery;
+use App\Model\Comment;
+use App\Model\Category;
+use App\Model\DisplaySize;
+use App\Model\OperatingSystem;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model

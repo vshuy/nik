@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\CategoryPost;
+use App\Model\CategoryPost;
 use Illuminate\Http\Request;
 
 class CategoryPostController extends Controller

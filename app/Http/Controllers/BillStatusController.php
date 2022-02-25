@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\BillStatus;
+use App\Model\BillStatus;
 use Illuminate\Http\Request;
 
 class BillStatusController extends Controller

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\OperatingSystem;
 use Illuminate\Http\Request;
+use App\Model\OperatingSystem;
 
 class OperatingSystemController extends Controller
 {

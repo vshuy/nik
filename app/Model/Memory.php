@@ -1,11 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Ram extends Model
+class Memory extends Model
 {
-    protected $table = "rams";
+    protected $table = "memories";
     protected $primaryKey = 'id';
 }

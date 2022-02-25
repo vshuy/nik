@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Bill;
 use App\User;
 use App\DetailBill;
+use App\Model\Bill;
 use App\Mail\BillNotify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Memory;
+use App\Model\Memory;
 use Illuminate\Http\Request;
 
 class MemoryController extends Controller

@@ -1,7 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Model;
 
+use App\Model\Product;
 use Illuminate\Database\Eloquent\Model;
 
 class DetailBill extends Model

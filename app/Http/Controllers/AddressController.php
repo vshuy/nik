@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Address;
-use App\User;
+use App\Model\User;
+use App\Model\Address;
 use Illuminate\Http\Request;
 
 class AddressController extends Controller

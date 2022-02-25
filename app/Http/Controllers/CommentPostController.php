@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\CommentPost;
+use App\Model\CommentPost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

@@ -1,7 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Model;
 
+use App\Model\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Address extends Model
