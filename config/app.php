@@ -178,6 +178,12 @@ return [
         CloudinaryLabs\CloudinaryLaravel\CloudinaryServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
 
+        /*
+        *Custom Service Providers import here
+        */
+
+        App\Repositories\RepositoryServiceProvider::class,
+
     ],
 
     /*
