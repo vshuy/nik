@@ -11,10 +11,10 @@ use PHP_CodeSniffer\Tokenizers\Comment as TokenizersComment;
 
 class CommentController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth:api', ['except' => ['index']]);
-    // }
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['show']]);
+    }
     /**
      * Display a listing of the resource.
      *
