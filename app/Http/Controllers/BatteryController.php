@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class BatteryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('role:admin', ['except' => ['index']]);
+    }
     public function index()
     {
         $brands = Battery::all();

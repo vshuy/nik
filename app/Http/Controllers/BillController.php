@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Mail;
 
 class BillController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+        $this->middleware('role:admin', ['except' => ['store', 'show', 'showbyuserid']]);
+    }
     // public $idBill;
     /**
      * Display a listing of the resource.
