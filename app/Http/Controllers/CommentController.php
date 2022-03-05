@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Laravel\Ui\Presets\React;
 use Illuminate\Support\Facades\DB;
 use PHP_CodeSniffer\Tokenizers\Comment as TokenizersComment;
+use phpDocumentor\Reflection\PseudoTypes\False_;
 
 class CommentController extends Controller
 {
@@ -98,10 +99,14 @@ class CommentController extends Controller
         $this->validate($request, [
             'contents' => 'required',
         ]);
-        $comment = Comment::find($request->id);
-        $comment->contents = $request->contents;
-        $comment->save();
-        return Response()->json(true);
+        if ($request->user()->cannot('update', [Comment::class, $request->id])) {
+            return Response()->json(false);
+        } else {
+            $comment = Comment::find($request->id);
+            $comment->contents = $request->contents;
+            $comment->save();
+            return Response()->json(true);
+        }
     }
 
     /**
