@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Product;
 use Cloudinary\Cloudinary;
 use Illuminate\Http\Request;
+use App\DataResponse\DataResponse;
 use App\Http\Requests\ProductCreateRequest;
 use App\Http\Requests\ProductUpdateRequest;
 use App\Repositories\ProductRepositoryInterface;
@@ -19,7 +20,12 @@ class ProductRepository implements ProductRepositoryInterface
     public function index()
     {
         $products = Product::all();
-        return response()->json($products);
+        return DataResponse::response(
+            DataResponse::$SUCCESS_GET_PRODUCT,
+            true,
+            $products,
+        );
+        // return response()->json($products);
     }
 
     public function indexPaginate(Request $request)
@@ -32,7 +38,11 @@ class ProductRepository implements ProductRepositoryInterface
             ->asc($request)
             ->desc($request)
             ->paginate(8);
-        return response()->json($products);
+        return DataResponse::response(
+            DataResponse::$SUCCESS_GET_PRODUCT,
+            true,
+            $products,
+        );
     }
 
     public function search(Request $request)
