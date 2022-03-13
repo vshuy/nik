@@ -12,8 +12,8 @@ class ProductController extends Controller
     private $product;
     public function __construct(ProductRepositoryInterface $product)
     {
-        $this->middleware('auth:api', ['except' => ['show', 'indexPaginate', 'search', 'index']]);
-        $this->middleware('role:admin', ['except' => ['show', 'search', 'indexPaginate', 'index']]);
+        $this->middleware('auth:api', ['except' => ['show', 'search', 'index']]);
+        $this->middleware('role:admin', ['except' => ['show', 'search', 'index']]);
         $this->product = $product;
     }
     /**
