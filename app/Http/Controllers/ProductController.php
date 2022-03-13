@@ -21,14 +21,9 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return $this->product->index();
-    }
-
-    public function indexPaginate(Request $request)
-    {
-        return $this->product->indexPaginate($request);
+        return $this->product->index($request);
     }
 
     public function search(Request $request)

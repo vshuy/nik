@@ -45,7 +45,6 @@ Route::get('/slide', 'SlideController@index');
 Route::post('/slide', 'SlideController@store');
 Route::delete('slide/{id}', 'SlideController@destroy');
 
-Route::get('/product/pg', 'ProductController@indexPaginate');
 Route::post('product/search', 'ProductController@search');
 
 Route::get('/product', 'ProductController@index');

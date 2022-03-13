@@ -8,8 +8,7 @@ use App\Http\Requests\ProductUpdateRequest;
 
 interface ProductRepositoryInterface
 {
-    public function index();
-    public function indexPaginate(Request $request);
+    public function index(Request $request);
     public function search(Request $request);
     public function store(ProductCreateRequest $request);
     public function show(Request $request);

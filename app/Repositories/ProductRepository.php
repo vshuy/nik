@@ -17,18 +17,8 @@ class ProductRepository implements ProductRepositoryInterface
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $products = Product::all();
-        return DataResponse::response(
-            DataResponse::$SUCCESS_GET_PRODUCT,
-            true,
-            $products,
-        );
-        // return response()->json($products);
-    }
 
-    public function indexPaginate(Request $request)
+    public function index(Request $request)
     {
         $products = Product::query()
             ->brand($request)
