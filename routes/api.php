@@ -29,6 +29,8 @@ Route::post('/user/register', 'ApiAuthController@register');
 Route::post('/user/logout', 'ApiAuthController@logout');
 Route::post('/user/me', 'ApiAuthController@me');
 
+Route::get('/filters', 'FilterController@index');
+
 Route::get('/address', 'AddressController@index');
 Route::post('/address', 'AddressController@store');
 Route::get('/address/{id}', 'AddressController@show');
