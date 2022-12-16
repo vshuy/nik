@@ -23,5 +23,8 @@ Auth::routes(['verify' => true]);
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/test', function () {
+    return "good i'm already ok";
+});
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/paypalexam', 'PaypalController@testPay');
