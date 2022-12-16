@@ -27,8 +27,7 @@ services:
     restart: unless-stopped
     tty: true
     ports:
-      - "80:80"
-      - "443:443"
+      - "8080:8000"  #8080 is post of real machine, 8000 is the posrt where NGNIX lisning
     volumes:
       - ./:/var/www
       - ./nginx/conf.d/:/etc/nginx/conf.d/
