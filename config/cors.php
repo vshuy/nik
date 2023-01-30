@@ -15,11 +15,11 @@ return [
     |
     */
 
-    'paths' => ['api/*'],
+    'paths' => ['malltab/api/*'],
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*','https://niklab.netlify.app'],
+    'allowed_origins' => ['*'],
 
     'allowed_origins_patterns' => [],
 
