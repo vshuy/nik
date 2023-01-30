@@ -20,11 +20,13 @@ use Illuminate\Support\Facades\Route;
 
 
 Auth::routes(['verify' => true]);
-Route::get('/', function () {
-    return view('welcome');
+Route::prefix('malltab')->group(function () {
+    Route::get('/', function () {
+        return view('welcome');
+    });
+    Route::get('/test', function () {
+        return "good i'm already ok";
+    });
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/paypalexam', 'PaypalController@testPay');
 });
-Route::get('/test', function () {
-    return "good i'm already ok";
-});
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/paypalexam', 'PaypalController@testPay');
