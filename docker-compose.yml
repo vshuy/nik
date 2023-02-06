@@ -33,6 +33,17 @@ services:
       - ./nginx/conf.d/:/etc/nginx/conf.d/
     networks:
       - app-network
+
+  #Cache Service
+  redis:
+      image: redis:alpine
+      container_name: myapp-redis
+      command: redis-server --appendonly yes --requirepass 12344321
+      volumes:
+      - ./data/redis:/data
+      ports:
+        - "6379:6379"
+
 #Docker Networks
 networks:
   app-network:
