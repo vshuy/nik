@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'paths' => ['api/*'],
+    'paths' => ['malltab/api/*'],
 
     'allowed_methods' => ['*'],
 
