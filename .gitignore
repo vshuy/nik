@@ -12,4 +12,4 @@ npm-debug.log
 yarn-error.log
 .vscode/settings.json
 Doxygen
-data/redis
+data
