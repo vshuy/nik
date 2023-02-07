@@ -23,7 +23,7 @@ class ProductRepository implements ProductRepositoryInterface
     public function index(Request $request)
     {
         $products = null;
-        if ($request->has('brand_ids') || $request->has('ram_ids') || $request->has('memory_ids') || $request->has('battery_ids') || $request->has('order')) {
+        if ($request->has('brand_ids') || $request->has('ram_ids') || $request->has('memory_ids') || $request->has('battery_ids') || $request->has('order') || $request->page != 1) {
             $products = Product::query()
                 ->brand($request)
                 ->ram($request)

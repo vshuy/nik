@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Slide;
 use Cloudinary\Cloudinary;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class SlideController extends Controller
 {
@@ -19,7 +20,14 @@ class SlideController extends Controller
      */
     public function index()
     {
-        $slides = Slide::all();
+        $slides = null;
+        $slides_rd = Redis::get('products_');
+        if (isset($slides_rd)) {
+            $slides = json_decode($slides_rd, true);
+        } else {
+            $slides = Slide::all();
+            Redis::set('products_', json_encode($slides));
+        }
         return response()->json($slides);
     }
 
