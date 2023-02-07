@@ -21,12 +21,12 @@ class SlideController extends Controller
     public function index()
     {
         $slides = null;
-        $slides_rd = Redis::get('products_');
+        $slides_rd = Redis::get('slides_');
         if (isset($slides_rd)) {
             $slides = json_decode($slides_rd, true);
         } else {
             $slides = Slide::all();
-            Redis::set('products_', json_encode($slides));
+            Redis::set('slides_', json_encode($slides));
         }
         return response()->json($slides);
     }
