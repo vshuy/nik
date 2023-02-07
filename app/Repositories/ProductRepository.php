@@ -22,10 +22,7 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function index(Request $request)
     {
-        Redis::set("tutorial-name", "Redis tutorial");
-        echo "Stored string in redis:: " . Redis::get("tutorial-name");
-        // Redis::del('products_');
-        $data_response = null;
+        $products = null;
         if ($request->has('brand_ids') || $request->has('ram_ids') || $request->has('memory_ids') || $request->has('battery_ids') || $request->has('order')) {
             $products = Product::query()
                 ->brand($request)
@@ -35,15 +32,10 @@ class ProductRepository implements ProductRepositoryInterface
                 ->asc($request)
                 ->desc($request)
                 ->paginate(8);
-            $data_response = DataResponse::response(
-                DataResponse::$SUCCESS_GET_PRODUCT,
-                true,
-                $products,
-            );
         } else {
-            $data_response_rd = Redis::get('products_');
-            if (isset($data_response_rd)) {
-                $data_response = json_decode($data_response_rd, true);
+            $products_rd = Redis::get('products_');
+            if (isset($products_rd)) {
+                $products = json_decode($products_rd, true);
             } else {
                 $products = Product::query()
                     ->brand($request)
@@ -53,20 +45,18 @@ class ProductRepository implements ProductRepositoryInterface
                     ->asc($request)
                     ->desc($request)
                     ->paginate(8);
-                $data_response = DataResponse::response(
-                    DataResponse::$SUCCESS_GET_PRODUCT,
-                    true,
-                    $products,
-                );
-                Redis::set('products_', json_encode($data_response));
+                Redis::set('products_', json_encode($products));
             }
         }
-        return $data_response;
+        return DataResponse::response(
+            DataResponse::$SUCCESS_GET_PRODUCT,
+            true,
+            $products,
+        );
     }
 
     public function search(Request $request)
     {
-
         $products = Product::select('products.id', 'products.name')
             ->where('products.name', 'like', '%' . $request->text . '%')
             ->get();
@@ -81,6 +71,7 @@ class ProductRepository implements ProductRepositoryInterface
      */
     public function store(ProductCreateRequest $request)
     {
+        Redis::del('products_');
         $dataProduct = json_decode($request->product_data);
         $result = $request->file_img_product->storeOnCloudinary();
         $path = $result->getSecurePath();
@@ -126,6 +117,7 @@ class ProductRepository implements ProductRepositoryInterface
      */
     public function update(ProductUpdateRequest $request)
     {
+        Redis::del('products_');
         $product = Product::find($request->id);
         $product->category_id = $request->category_id;
         $product->brand_id = $request->brand_id;
@@ -151,6 +143,7 @@ class ProductRepository implements ProductRepositoryInterface
      */
     public function destroy(Request $request)
     {
+        Redis::del('products_');
         $product = Product::find($request->id);
         $cloudinary = new Cloudinary();
         $cloudinary->uploadApi()->destroy($product->publicIdCloudinary);
