@@ -34,6 +34,19 @@ class ProductRepository implements ProductRepositoryInterface
                 ->paginate(8);
         } else {
             $products = Redis::get('products_');
+            if (isset($products)) {
+                $products = json_decode($products, FALSE);
+            } else {
+                $products = Product::query()
+                    ->brand($request)
+                    ->ram($request)
+                    ->battery($request)
+                    ->memory($request)
+                    ->asc($request)
+                    ->desc($request)
+                    ->paginate(8);
+                Redis::set('products_', $products);
+            }
         }
         return DataResponse::response(
             DataResponse::$SUCCESS_GET_PRODUCT,
