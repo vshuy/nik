@@ -35,7 +35,7 @@
                 "-S",
                 "localhost:8000",
                 "-t",
-                "/home/nik/Downloads/Phplab/nik/public"
+                "/home/nik/Desktop/nik/public"
             ],
             "program": "",
             "cwd": "${workspaceRoot}",

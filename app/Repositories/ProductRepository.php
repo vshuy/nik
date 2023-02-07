@@ -22,7 +22,10 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function index(Request $request)
     {
-        $products = null;
+        Redis::set("tutorial-name", "Redis tutorial");
+        echo "Stored string in redis:: " . Redis::get("tutorial-name");
+        // Redis::del('products_');
+        $data_response = null;
         if ($request->has('brand_ids') || $request->has('ram_ids') || $request->has('memory_ids') || $request->has('battery_ids') || $request->has('order')) {
             $products = Product::query()
                 ->brand($request)
@@ -32,10 +35,15 @@ class ProductRepository implements ProductRepositoryInterface
                 ->asc($request)
                 ->desc($request)
                 ->paginate(8);
+            $data_response = DataResponse::response(
+                DataResponse::$SUCCESS_GET_PRODUCT,
+                true,
+                $products,
+            );
         } else {
-            $products = Redis::get('products_');
-            if (isset($products)) {
-                $products = json_decode($products, FALSE);
+            $data_response_rd = Redis::get('products_');
+            if (isset($data_response_rd)) {
+                $data_response = json_decode($data_response_rd, true);
             } else {
                 $products = Product::query()
                     ->brand($request)
@@ -45,18 +53,20 @@ class ProductRepository implements ProductRepositoryInterface
                     ->asc($request)
                     ->desc($request)
                     ->paginate(8);
-                Redis::set('products_', $products);
+                $data_response = DataResponse::response(
+                    DataResponse::$SUCCESS_GET_PRODUCT,
+                    true,
+                    $products,
+                );
+                Redis::set('products_', json_encode($data_response));
             }
         }
-        return DataResponse::response(
-            DataResponse::$SUCCESS_GET_PRODUCT,
-            true,
-            $products,
-        );
+        return $data_response;
     }
 
     public function search(Request $request)
     {
+
         $products = Product::select('products.id', 'products.name')
             ->where('products.name', 'like', '%' . $request->text . '%')
             ->get();
