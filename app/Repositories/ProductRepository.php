@@ -9,6 +9,8 @@ use App\DataResponse\DataResponse;
 use App\Http\Requests\ProductCreateRequest;
 use App\Http\Requests\ProductUpdateRequest;
 use App\Repositories\ProductRepositoryInterface;
+use Illuminate\Support\Facades\Redis;
+
 
 class ProductRepository implements ProductRepositoryInterface
 {
@@ -20,14 +22,19 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function index(Request $request)
     {
-        $products = Product::query()
-            ->brand($request)
-            ->ram($request)
-            ->battery($request)
-            ->memory($request)
-            ->asc($request)
-            ->desc($request)
-            ->paginate(8);
+        $products = null;
+        if ($request->has('brand_ids') || $request->has('ram_ids') || $request->has('memory_ids') || $request->has('battery_ids') || $request->has('order')) {
+            $products = Product::query()
+                ->brand($request)
+                ->ram($request)
+                ->battery($request)
+                ->memory($request)
+                ->asc($request)
+                ->desc($request)
+                ->paginate(8);
+        } else {
+            $products = Redis::get('products_');
+        }
         return DataResponse::response(
             DataResponse::$SUCCESS_GET_PRODUCT,
             true,
